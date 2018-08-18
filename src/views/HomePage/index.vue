@@ -10,13 +10,12 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .home-page {
-
-}
-.test {
-  width: 375px;
-  height: 100px;
-  background: red;
+  .test {
+    width: 375px;
+    height: 100px;
+    background: red;
+  }
 }
 </style>
