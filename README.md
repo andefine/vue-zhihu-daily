@@ -60,3 +60,7 @@ proxyTable: {
 }
 ```
 使用axios时。。。。
+
+[vue cli+axios踩坑记录+拦截器使用，代理跨域proxy（更新）](https://blog.csdn.net/u012369271/article/details/72848102)
+
+[API Proxying During Development](http://vuejs-templates.github.io/webpack/proxy.html)
