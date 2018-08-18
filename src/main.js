@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import 'normalize.css' // A modern alternative to CSS resets
 import 'lib-flexible' // 引入淘宝手机端适配方案，当然还要使用px2rem-loader
+import '@/styles/common.scss' // 全局公共样式
 
 Vue.config.productionTip = false
 
