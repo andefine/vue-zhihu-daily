@@ -1,12 +1,16 @@
 <template>
   <div class="home-page">
-    <div class="test"></div>
+    <Header></Header>
+    <Swiper></Swiper>
   </div>
 </template>
 
 <script>
 export default {
-
+  components: {
+    Header: () => import('@/components/Header'),
+    Swiper: () => import('@/components/Swiper')
+  }
 }
 </script>
 
