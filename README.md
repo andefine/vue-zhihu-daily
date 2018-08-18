@@ -44,3 +44,19 @@ const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader, px
 ```
 
 ## 安装node-sass,sass-loader让.vue文件中写style时可以直接使用scss
+
+
+
+## 配置开发时的api代理，实现跨域，修改config/index.js，找到proxyTable，修改：
+```
+proxyTable: {
+  '/api': {
+    target: 'https://news-at.zhihu.com',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api': '/api'
+    }
+  }
+}
+```
+使用axios时。。。。
