@@ -64,3 +64,6 @@ proxyTable: {
 [vue cli+axios踩坑记录+拦截器使用，代理跨域proxy（更新）](https://blog.csdn.net/u012369271/article/details/72848102)
 
 [API Proxying During Development](http://vuejs-templates.github.io/webpack/proxy.html)
+
+## 使用axios获取的图片url直接放在img的src属性中呢，会出现403的错误(╥╯^╰╥)。解决方法
+[【前端】解决访问api图片403禁止访问问题](https://segmentfault.com/a/1190000011628835)
