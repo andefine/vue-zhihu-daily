@@ -4,20 +4,17 @@
     <Swiper></Swiper>
     <div class="today-hot">
       <h3 class="title">今日要闻</h3>
-      <news-item class="item"></news-item>
-      <news-item class="item"></news-item>
-      <news-item class="item"></news-item>
-      <news-item class="item"></news-item>
-      <news-item class="item"></news-item>
-      <news-item class="item"></news-item>
-      <news-item class="item"></news-item>
+      <news-item class="item" v-for="(story, index) in todayHotStories" :key="index" :story="story"></news-item>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
+  computed: {
+    ...mapState(['todayHotStories'])
+  },
   components: {
     Header: () => import('@/components/Header'),
     Swiper: () => import('@/components/Swiper'),
@@ -28,7 +25,6 @@ export default {
   },
   mounted () {
     this.getNewsLatest()
-    console.log(1)
   }
 }
 </script>

@@ -1,10 +1,25 @@
 <template>
-  <div class="news-item"></div>
+  <div class="news-item">
+    <span class="title">{{story.title}}</span>
+    <div class="right">
+      <img class="img" :src="image403(story.images[0])" alt="">
+      <div class="corner" v-if="story.multipic">
+        <img class="mutiple" src="../../assets/img/images_icon.png" alt="">
+        <span>多图</span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import image403 from '@/utils/image403'
 export default {
-
+  props: {
+    story: Object
+  },
+  methods: {
+    image403
+  }
 }
 </script>
 
@@ -12,8 +27,47 @@ export default {
   .news-item {
     width: 716px;
     height: 203px;
+    box-sizing: border-box;
     background: #fff;
     border-radius: 6px;
     box-shadow: 0 4px 10px 0 #ddd;
+    padding: 24px 34px 0;
+    display: flex;
+    justify-content: space-between;
+    .title {
+      font-size: 34px;
+      line-height: 44px;
+    }
+    .right {
+      width: 170px;
+      height: 150px;
+      margin-left: 28px;
+      position: relative;
+      .img {
+        width: 170px;
+        height: 150px;
+      }
+      .corner {
+        width: 88px;
+        height: 38px;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.5);
+        box-sizing: border-box;
+        padding: 0 6px;
+        .mutiple {
+          width: 22px;
+          height: 22px;
+        }
+        span {
+          font-size: 22px;
+          color: #fff;
+        }
+      }
+    }
   }
 </style>

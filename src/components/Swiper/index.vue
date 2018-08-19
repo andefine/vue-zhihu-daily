@@ -13,6 +13,7 @@
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import { mapState } from 'vuex'
+import image403 from '@/utils/image403'
 export default {
   data () {
     return {
@@ -37,11 +38,7 @@ export default {
   },
   methods: {
     // 解决访问api图片403禁止访问问题
-    image403 (url) {
-      if (url !== undefined) {
-        return url.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p')
-      }
-    }
+    image403
   }
 }
 </script>

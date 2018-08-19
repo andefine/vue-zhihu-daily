@@ -2,7 +2,7 @@
   <div class="header">
     <div class="left">
       <img class="menu" src="../../assets/img/menu.png" alt="">
-      <span>首页</span>
+      <span class="title">首页</span>
     </div>
     <div class="right">
       <img src="../../assets/img/bell.png" alt="">
@@ -36,6 +36,9 @@ export default {
   .left {
     .menu {
       margin: 0 70px 0 40px;
+    }
+    .title {
+      font-size: 36px;
     }
   }
   .right {
