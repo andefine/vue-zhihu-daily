@@ -1,8 +1,9 @@
 <template>
-  <swiper class="swiper" :options="swiperOption">
-    <swiper-slide v-for="(story, index) in topStories" :key="index">
-      <span>{{story.title}}</span>
-      <img :src="image403(story.image)" alt="">
+  <swiper class="swiper" :options="swiperOption" v-if="topStories.length > 0">
+    <swiper-slide class="slide" v-for="(story, index) in topStories" :key="index">
+      <img class="img" :src="image403(story.image)" alt="">
+      <div class="mask"></div>
+      <span class="title">{{story.title}}</span>
     </swiper-slide>
     <div class="swiper-pagination" slot="pagination"></div>
   </swiper>
@@ -17,7 +18,10 @@ export default {
     return {
       swiperOption: {
         direction: 'horizontal',
-        autoplay: true,
+        loop: true,
+        autoplay: {
+          disableOnInteraction: false
+        },
         pagination: {
           el: '.swiper-pagination'
         }
@@ -47,10 +51,49 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .swiper {
   width: 100%;
   height: 470px;
-  background: #aaa;
+  .slide {
+    width: 100%;
+    height: 100%;
+    .mask {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: linear-gradient(rgba(0, 0, 0, 0) 0.5, rgba(0, 0, 0, 0.5));
+    }
+    .img {
+      width: 100%;
+      height: auto;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .title {
+      font-size: 46px;
+      line-height: 54px;
+      position: absolute;
+      left: 0;
+      bottom: 55px;
+      padding: 0 34px;
+      color: #fffffc;
+    }
+  }
 }
+</style>
+
+<style lang="scss">
+  .swiper-pagination-bullet {
+    background: #88878d;
+    opacity: 1;
+    &.swiper-pagination-bullet-active {
+      background: #fffffd;
+      opacity: 1;
+    }
+  }
 </style>
