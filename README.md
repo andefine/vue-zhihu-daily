@@ -67,3 +67,5 @@ proxyTable: {
 
 ## 使用axios获取的图片url直接放在img的src属性中呢，会出现403的错误(╥╯^╰╥)。解决方法
 [【前端】解决访问api图片403禁止访问问题](https://segmentfault.com/a/1190000011628835)
+
+## vue-awesome-swiper使用v-for渲染数据时，设置loop:true无效，解决方法：在父元素中添加v-if="xxx.length > 0"。答案在此[{ loop: true } swiper-slide goes wrong when data is from v-for](https://github.com/surmon-china/vue-awesome-swiper/issues/322)
