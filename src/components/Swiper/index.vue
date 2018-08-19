@@ -12,7 +12,7 @@
 <script>
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import axios from 'axios'
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -25,20 +25,15 @@ export default {
         pagination: {
           el: '.swiper-pagination'
         }
-      },
-      topStories: [] // 轮播图数据
+      }
     }
+  },
+  computed: {
+    ...mapState(['topStories'])
   },
   components: {
     swiper,
     swiperSlide
-  },
-  created () {
-    axios.get('/api/4/news/latest').then(res => {
-      if (res.status === 200) {
-        this.topStories = res.data.top_stories
-      }
-    })
   },
   methods: {
     // 解决访问api图片403禁止访问问题
