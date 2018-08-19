@@ -2,7 +2,7 @@
   <div class="news-item">
     <span class="title">{{story.title}}</span>
     <div class="right">
-      <img class="img" :src="image403(story.images[0])" alt="">
+      <img class="img" v-lazy="image403(story.images[0])" alt="">
       <div class="corner" v-if="story.multipic">
         <img class="mutiple" src="../../assets/img/images_icon.png" alt="">
         <span>多图</span>
