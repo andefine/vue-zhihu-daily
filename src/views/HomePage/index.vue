@@ -6,6 +6,10 @@
       <h3 class="title">今日要闻</h3>
       <news-item class="item" v-for="(story, index) in todayHotStories" :key="index" :story="story"></news-item>
     </div>
+    <div class="news-before" v-for="(item, outIndex) in beforeStories" :key="outIndex">
+      <h3 class="title">{{item.date}}</h3>
+      <news-item class="item" v-for="(story, innerIndx) in item.stories" :key="innerIndx" :story="story"></news-item>
+    </div>
   </div>
 </template>
 
@@ -13,7 +17,7 @@
 import { mapState, mapActions } from 'vuex'
 export default {
   computed: {
-    ...mapState(['todayHotStories'])
+    ...mapState(['todayHotStories', 'beforeStories'])
   },
   components: {
     Header: () => import('@/components/Header'),
@@ -21,10 +25,12 @@ export default {
     NewsItem: () => import('@/components/NewsItem')
   },
   methods: {
-    ...mapActions(['getNewsLatest'])
+    ...mapActions(['getNewsLatest', 'getBefore'])
   },
   mounted () {
-    this.getNewsLatest()
+    this.getNewsLatest().then(() => {
+      this.getBefore()
+    })
   }
 }
 </script>
@@ -34,7 +40,7 @@ export default {
   height: 100%;
   background: #f3f3f3;
   overflow: scroll;
-  .today-hot {
+  .today-hot, .news-before {
     padding-top: 35px;
     .title {
       font-size: 28px;
