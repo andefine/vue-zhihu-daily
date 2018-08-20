@@ -8,7 +8,7 @@
         <news-item class="item" v-for="(story, index) in todayHotStories" :key="index" :story="story"></news-item>
       </div>
       <div class="news-before" v-for="(item, outIndex) in beforeStories" :key="outIndex">
-        <h3 class="title">{{item.date}}</h3>
+        <h3 class="title">{{dateFormat(item.date)}}</h3>
         <news-item class="item" v-for="(story, innerIndx) in item.stories" :key="innerIndx" :story="story"></news-item>
       </div>
     </div>
@@ -18,6 +18,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import BScroll from 'better-scroll'
+import moment from 'moment'
 export default {
   computed: {
     ...mapState(['todayHotStories', 'beforeStories'])
@@ -28,7 +29,37 @@ export default {
     NewsItem: () => import('@/components/NewsItem')
   },
   methods: {
-    ...mapActions(['getNewsLatest', 'getBefore'])
+    ...mapActions(['getNewsLatest', 'getBefore']),
+    dateFormat (dateString) {
+      let day = ''
+      switch (moment(dateString).format('e')) {
+        case '0':
+          day = '日'
+          break
+        case '1':
+          day = '一'
+          break
+        case '2':
+          day = '二'
+          break
+        case '3':
+          day = '三'
+          break
+        case '4':
+          day = '四'
+          break
+        case '5':
+          day = '五'
+          break
+        case '6':
+          day = '六'
+          break
+
+        default:
+          break
+      }
+      return moment(dateString).format('MM月DD日') + ' 星期' + day
+    }
   },
   created () {
     this.getNewsLatest().then((res) => {
