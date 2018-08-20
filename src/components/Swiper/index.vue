@@ -56,7 +56,7 @@ export default {
       position: absolute;
       left: 0;
       top: 0;
-      background: linear-gradient(rgba(0, 0, 0, 0) 0.5, rgba(0, 0, 0, 0.5));
+      background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
     }
     .img {
       width: 100%;
