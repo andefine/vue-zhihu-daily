@@ -1,20 +1,23 @@
 <template>
-  <div class="home-page">
-    <Header></Header>
-    <Swiper></Swiper>
-    <div class="today-hot">
-      <h3 class="title">今日要闻</h3>
-      <news-item class="item" v-for="(story, index) in todayHotStories" :key="index" :story="story"></news-item>
-    </div>
-    <div class="news-before" v-for="(item, outIndex) in beforeStories" :key="outIndex">
-      <h3 class="title">{{item.date}}</h3>
-      <news-item class="item" v-for="(story, innerIndx) in item.stories" :key="innerIndx" :story="story"></news-item>
+  <div class="home-page" ref="wrapper">
+    <div>
+      <Header></Header>
+      <Swiper></Swiper>
+      <div class="today-hot">
+        <h3 class="title">今日要闻</h3>
+        <news-item class="item" v-for="(story, index) in todayHotStories" :key="index" :story="story"></news-item>
+      </div>
+      <div class="news-before" v-for="(item, outIndex) in beforeStories" :key="outIndex">
+        <h3 class="title">{{item.date}}</h3>
+        <news-item class="item" v-for="(story, innerIndx) in item.stories" :key="innerIndx" :story="story"></news-item>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import BScroll from 'better-scroll'
 export default {
   computed: {
     ...mapState(['todayHotStories', 'beforeStories'])
@@ -27,9 +30,13 @@ export default {
   methods: {
     ...mapActions(['getNewsLatest', 'getBefore'])
   },
-  mounted () {
-    this.getNewsLatest().then(() => {
-      this.getBefore()
+  created () {
+    this.getNewsLatest().then((res) => {
+      // this.getBefore()
+      this.$nextTick(() => {
+        this.scroll = new BScroll(this.$refs.wrapper, {})
+        console.log(this.scroll)
+      })
     })
   }
 }
