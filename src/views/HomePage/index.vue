@@ -34,8 +34,16 @@ export default {
     this.getNewsLatest().then((res) => {
       // this.getBefore()
       this.$nextTick(() => {
-        this.scroll = new BScroll(this.$refs.wrapper, {})
-        console.log(this.scroll)
+        if (!this.scroll) {
+          this.scroll = new BScroll(this.$refs.wrapper, {})
+          this.scroll.on('scrollEnd', (pos) => {
+            if (this.scroll.y <= (this.scroll.maxScrollY + 100)) {
+              this.getBefore()
+            }
+          })
+        } else {
+          this.scroll.refresh()
+        }
       })
     })
   }

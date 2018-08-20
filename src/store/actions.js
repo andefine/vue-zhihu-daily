@@ -20,8 +20,7 @@ export default {
       date = state.beforeStories[state.beforeStories.length - 1].date
     }
 
-    let api = '/api/4/news/before/' + date
-    axios.get(api).then(res => {
+    return axios.get('/api/4/news/before/' + date).then(res => {
       if (res.status === 200) {
         commit('ADDSTORIES', res.data)
       }
