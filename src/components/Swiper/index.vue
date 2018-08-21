@@ -16,15 +16,20 @@ import { mapState } from 'vuex'
 import image403 from '@/utils/image403'
 export default {
   data () {
+    let vm = this
     return {
       swiperOption: {
-        direction: 'horizontal',
         loop: true,
         autoplay: {
           disableOnInteraction: false
         },
         pagination: {
           el: '.swiper-pagination'
+        },
+        on: {
+          tap: function () {
+            vm.$router.push({ name: 'newsDetail', params: { id: vm.topStories[this.clickedIndex].id } })
+          }
         }
       }
     }
@@ -38,7 +43,11 @@ export default {
   },
   methods: {
     // 解决访问api图片403禁止访问问题
-    image403
+    image403,
+    toNewsDetail (id) {
+      console.log(1)
+      this.$router.push({ path: `newsDetail/${id}` })
+    }
   }
 }
 </script>

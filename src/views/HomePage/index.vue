@@ -30,6 +30,7 @@ export default {
   },
   methods: {
     ...mapActions(['getNewsLatest', 'getBefore']),
+    // 将yyyymmdd格式的日期数字字符串转成想要的日期字符串，20180820 -> 08月20日 星期x
     dateFormat (dateString) {
       let day = ''
       switch (moment(dateString).format('e')) {

@@ -7,7 +7,13 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'homePage',
       component: () => import('@/views/HomePage')
+    },
+    {
+      path: '/newsDetail/:id',
+      name: 'newsDetail',
+      component: () => import('@/views/NewsDetail')
     }
   ]
 })
