@@ -66,11 +66,15 @@ export default {
       // this.getBefore()
       this.$nextTick(() => {
         if (!this.scroll) {
-          this.scroll = new BScroll(this.$refs.wrapper, {})
-          this.scroll.on('scrollEnd', (pos) => {
-            if (this.scroll.y <= (this.scroll.maxScrollY + 100)) {
-              this.getBefore()
+          this.scroll = new BScroll(this.$refs.wrapper, {
+            pullUpLoad: {
+              threshhold: 50
             }
+          })
+          this.scroll.on('pullingUp', (pos) => {
+            this.getBefore().then(() => {
+              this.scroll.finishPullUp()
+            })
           })
         } else {
           this.scroll.refresh()
