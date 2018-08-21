@@ -28,7 +28,8 @@ export default {
         },
         on: {
           tap: function () {
-            vm.$router.push({ name: 'newsDetail', params: { id: vm.topStories[this.clickedIndex].id } })
+            // clickedIndex下标从1开始
+            vm.$router.push({ name: 'newsDetail', params: { id: vm.topStories[this.clickedIndex - 1].id } })
           }
         }
       }
