@@ -11,7 +11,7 @@ import image403 from '../../utils/image403'
 export default {
   data () {
     return {
-      story: null
+      story: {}
     }
   },
   mounted () {
