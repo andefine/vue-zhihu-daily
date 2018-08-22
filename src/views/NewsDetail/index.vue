@@ -1,7 +1,15 @@
 <template>
   <div class="news-detail">
     <link rel="stylesheet" :href="story.css">
-    <div class="my-body" v-html="image403(story.body)"></div>
+    <div class="container">
+      <div class="top">
+        <img class="img" :src="image403(story.image)" alt="">
+        <div class="mask"></div>
+        <span class="title">{{story.title}}</span>
+        <span class="image-source">{{story.image_source}}</span>
+      </div>
+      <div class="my-body" v-html="image403(story.body)"></div>
+    </div>
   </div>
 </template>
 
@@ -30,6 +38,50 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.news-detail {
+  height: 100%;
+  overflow: auto;
+  .container {
+    position: relative;
+    .top {
+      width: 100%;
+      height: 420px;
+      position: absolute;
+      overflow: hidden;
+      color: #fff;
+      .img {
+        width: 100%;
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+      }
+      .mask {
+        width: 100%;
+        height: 420px;
+        position: absolute;
+        background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+      }
+      .title {
+        position: absolute;
+        left: 0;
+        bottom: 50px;
+        padding: 0 20px;
+        line-height: 60px;
+      }
+      .image-source {
+        position: absolute;
+        right: 40px;
+        bottom: 15px;
+        font-size: 24px;
+        opacity: 0.7;
+      }
+    }
+    .my-body {
+      // position: absolute;
+    }
+  }
+}
 </style>
