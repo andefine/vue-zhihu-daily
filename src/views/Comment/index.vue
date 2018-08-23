@@ -32,6 +32,9 @@ export default {
       return this.$route.params.id
     }
   },
+  components: {
+    CommentCard: () => import('@/components/CommentCard')
+  },
   mounted () {
     this.getStoryExtra(this.storyId)
     this.getLongComments(this.storyId)
