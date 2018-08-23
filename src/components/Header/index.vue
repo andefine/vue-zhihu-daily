@@ -38,7 +38,7 @@ export default {
       margin: 0 70px 0 40px;
     }
     .title {
-      font-size: 36px;
+      font-size: 40px;
     }
   }
   .right {

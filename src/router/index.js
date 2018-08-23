@@ -19,6 +19,11 @@ export default new Router({
       path: '/newsDetail/:id',
       name: 'newsDetail',
       component: () => import('@/views/NewsDetail')
+    },
+    {
+      path: '/newsDetail/:id/comment',
+      name: 'comment',
+      component: () => import('@/views/Comment')
     }
   ]
 })
