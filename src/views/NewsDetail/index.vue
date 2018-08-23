@@ -1,7 +1,7 @@
 <template>
   <div class="news-detail">
     <link rel="stylesheet" :href="story.css">
-    <detail-header></detail-header>
+    <detail-header :story-id="story.id"></detail-header>
     <div class="container">
       <div class="top">
         <img class="img" :src="image403(story.image)" alt="">

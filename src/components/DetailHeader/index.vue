@@ -8,19 +8,39 @@
       <img class="item" src="../../assets/img/star.png" alt="">
       <div class="comment item">
         <img src="../../assets/img/comment.png" alt="">
-        <span>12</span>
+        <span>{{storyExtra.comments}}</span>
       </div>
       <div class="thumb-up item">
         <img src="../../assets/img/thumb_up.png" alt="">
-        <span>22</span>
+        <span>{{storyExtra.popularity}}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-
+  data () {
+    return {
+      storyExtra: {}
+    }
+  },
+  props: {
+    storyId: Number
+  },
+  mounted () {
+    this.getStoryExtra()
+  },
+  methods: {
+    getStoryExtra () {
+      return axios.get(`/api/4/story-extra/${this.storyId}`).then((res) => {
+        if (res.status === 200) {
+          this.storyExtra = res.data
+        }
+      })
+    }
+  }
 }
 </script>
 
