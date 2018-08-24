@@ -1,16 +1,21 @@
 <template>
   <div class="home-page" ref="wrapper">
-    <div>
-      <Header></Header>
-      <Swiper></Swiper>
-      <div class="today-hot">
-        <h3 class="title">今日要闻</h3>
-        <news-item class="item" v-for="(story, index) in todayHotStories" :key="index" :story="story"></news-item>
+    <div ref="wrapper">
+      <div>
+        <Header v-on:tap-menu="toggleSidebar"></Header>
+        <Swiper></Swiper>
+        <div class="today-hot">
+          <h3 class="title">今日要闻</h3>
+          <news-item class="item" v-for="(story, index) in todayHotStories" :key="index" :story="story"></news-item>
+        </div>
+        <div class="news-before" v-for="(item, outIndex) in beforeStories" :key="outIndex">
+          <h3 class="title">{{dateFormat(item.date)}}</h3>
+          <news-item class="item" v-for="(story, innerIndx) in item.stories" :key="innerIndx" :story="story"></news-item>
+        </div>
       </div>
-      <div class="news-before" v-for="(item, outIndex) in beforeStories" :key="outIndex">
-        <h3 class="title">{{dateFormat(item.date)}}</h3>
-        <news-item class="item" v-for="(story, innerIndx) in item.stories" :key="innerIndx" :story="story"></news-item>
-      </div>
+    </div>
+    <div class="mask {sidebarIsShow ? 'show' : ''}" v-show="sidebarIsShow">
+      <sidebar-menu class="sidebar-menu"></sidebar-menu>
     </div>
   </div>
 </template>
@@ -20,13 +25,19 @@ import { mapState, mapActions } from 'vuex'
 import BScroll from 'better-scroll'
 import moment from 'moment'
 export default {
+  data () {
+    return {
+      sidebarIsShow: false
+    }
+  },
   computed: {
     ...mapState(['todayHotStories', 'beforeStories'])
   },
   components: {
     Header: () => import('@/components/Header'),
     Swiper: () => import('@/components/Swiper'),
-    NewsItem: () => import('@/components/NewsItem')
+    NewsItem: () => import('@/components/NewsItem'),
+    SidebarMenu: () => import('@/components/SidebarMenu')
   },
   methods: {
     ...mapActions(['getNewsLatest', 'getBefore']),
@@ -60,6 +71,9 @@ export default {
           break
       }
       return moment(dateString).format('MM月DD日') + ' 星期' + day
+    },
+    toggleSidebar () {
+      this.sidebarIsShow = !this.sidebarIsShow
     }
   },
   created () {
@@ -102,6 +116,24 @@ export default {
     }
     .item {
       margin: 0 auto 17px;
+    }
+  }
+  .mask {
+    background: rgba(0, 0, 0, 0);
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    transition: all 0.5s;
+    &.show {
+      background: rgba(0, 0, 0, 0.6);
+    }
+    .sidebar-menu {
+      position: absolute;
+      left: 0;
+      top: 0;
     }
   }
 }

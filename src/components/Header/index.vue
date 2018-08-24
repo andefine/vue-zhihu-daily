@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="left">
-      <img class="menu" src="../../assets/img/menu.png" alt="">
+      <img class="menu" src="../../assets/img/menu.png" alt="" v-on:click="tapMenu">
       <span class="title">首页</span>
     </div>
     <div class="right">
@@ -13,7 +13,11 @@
 
 <script>
 export default {
-
+  methods: {
+    tapMenu () {
+      console.log(1)
+    }
+  }
 }
 </script>
 
