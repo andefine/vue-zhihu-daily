@@ -2,7 +2,7 @@
   <div class="home-page" ref="wrapper">
     <div ref="wrapper">
       <div>
-        <Header v-on:tap-menu="toggleSidebar"></Header>
+        <Header v-on:tap-menu="showSidebar"></Header>
         <Swiper></Swiper>
         <div class="today-hot">
           <h3 class="title">今日要闻</h3>
@@ -14,8 +14,9 @@
         </div>
       </div>
     </div>
-    <div class="mask {sidebarIsShow ? 'show' : ''}" v-show="sidebarIsShow">
-      <sidebar-menu class="sidebar-menu"></sidebar-menu>
+    <div class="mask" :class="{ bg: sidebarIsShow }" v-show="maskIsShow" @click="hideSidebar">
+      <!-- <div class="test" @click.stop=""></div> -->
+      <sidebar-menu class="sidebar-menu" :class="sidebarIsShow ? 'show' : ''" @my-click="test"></sidebar-menu>
     </div>
   </div>
 </template>
@@ -27,7 +28,9 @@ import moment from 'moment'
 export default {
   data () {
     return {
-      sidebarIsShow: false
+      sidebarIsShow: false,
+      maskIsShow: false,
+      timer: null
     }
   },
   computed: {
@@ -72,8 +75,19 @@ export default {
       }
       return moment(dateString).format('MM月DD日') + ' 星期' + day
     },
-    toggleSidebar () {
-      this.sidebarIsShow = !this.sidebarIsShow
+    showSidebar () {
+      this.sidebarIsShow = true
+      this.maskIsShow = true
+    },
+    hideSidebar () {
+      this.sidebarIsShow = false
+      clearTimeout(this.timer)
+      this.timer = setTimeout(() => {
+        this.maskIsShow = false
+      }, 500)
+    },
+    test () {
+      console.log(2)
     }
   },
   created () {
@@ -84,7 +98,8 @@ export default {
           this.scroll = new BScroll(this.$refs.wrapper, {
             pullUpLoad: {
               threshhold: 50
-            }
+            },
+            click: true
           })
           this.scroll.on('pullingUp', (pos) => {
             this.getBefore().then(() => {
@@ -127,13 +142,27 @@ export default {
     bottom: 0;
     z-index: 1;
     transition: all 0.5s;
-    &.show {
+    &.bg {
       background: rgba(0, 0, 0, 0.6);
     }
     .sidebar-menu {
       position: absolute;
       left: 0;
       top: 0;
+      z-index: 100;
+      transition: transform 0.5s;
+      transform: translateX(-100%);
+      &.show {
+        transform: translateX(0);
+      }
+    }
+    .test {
+      width: 500px;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: #fff;
     }
   }
 }

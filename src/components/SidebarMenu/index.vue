@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar">
+  <div class="sidebar" @click.stop="myClick">
     <div class="header">
       <div class="user">
         <img class="avatar" src="../../assets/img/default_avatar.png" alt="">
@@ -29,6 +29,11 @@ export default {
           img: '../../assets/img/download.png'
         }
       ]
+    }
+  },
+  methods: {
+    myClick () {
+      this.$emit('my-click')
     }
   }
 }

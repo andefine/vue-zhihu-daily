@@ -15,7 +15,7 @@
 export default {
   methods: {
     tapMenu () {
-      console.log(1)
+      this.$emit('tap-menu')
     }
   }
 }
