@@ -83,9 +83,6 @@ export default {
         opacity: 0.7;
       }
     }
-    .my-body {
-      // position: absolute;
-    }
   }
 }
 </style>
