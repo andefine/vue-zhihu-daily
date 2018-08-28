@@ -15,8 +15,7 @@
       </div>
     </div>
     <div class="mask" :class="{ bg: sidebarIsShow }" v-show="maskIsShow" @click="hideSidebar">
-      <!-- <div class="test" @click.stop=""></div> -->
-      <sidebar-menu class="sidebar-menu" :class="sidebarIsShow ? 'show' : ''" @my-click="test"></sidebar-menu>
+      <sidebar-menu class="sidebar-menu" :class="sidebarIsShow ? 'show' : ''"></sidebar-menu>
     </div>
   </div>
 </template>
@@ -86,13 +85,10 @@ export default {
         this.maskIsShow = false
       }, 500)
     },
-    test () {
-      console.log(2)
-    }
+    doNothing () {}
   },
   created () {
     this.getNewsLatest().then((res) => {
-      // this.getBefore()
       this.$nextTick(() => {
         if (!this.scroll) {
           this.scroll = new BScroll(this.$refs.wrapper, {
@@ -155,14 +151,6 @@ export default {
       &.show {
         transform: translateX(0);
       }
-    }
-    .test {
-      width: 500px;
-      height: 100%;
-      position: absolute;
-      left: 0;
-      top: 0;
-      background: #fff;
     }
   }
 }
