@@ -2,7 +2,7 @@
   <div class="home-page" ref="wrapper">
     <div ref="wrapper">
       <div>
-        <Header v-on:tap-menu="showSidebar"></Header>
+        <Header v-on:tap-menu="toggleSidebar"></Header>
         <Swiper></Swiper>
         <div class="today-hot">
           <h3 class="title">今日要闻</h3>
@@ -14,9 +14,13 @@
         </div>
       </div>
     </div>
-    <div class="mask" :class="{ bg: sidebarIsShow }" v-show="maskIsShow" @click="hideSidebar">
-      <sidebar-menu class="sidebar-menu" :class="sidebarIsShow ? 'show' : ''"></sidebar-menu>
-    </div>
+    <transition name="fade">
+      <div class="mask" v-show="sidebarIsShow" @click="toggleSidebar">
+        <transition name="slide">
+          <sidebar-menu class="sidebar-menu" v-show="sidebarIsShow"></sidebar-menu>
+        </transition>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -28,7 +32,6 @@ export default {
   data () {
     return {
       sidebarIsShow: false,
-      maskIsShow: false,
       timer: null
     }
   },
@@ -74,18 +77,9 @@ export default {
       }
       return moment(dateString).format('MM月DD日') + ' 星期' + day
     },
-    showSidebar () {
-      this.sidebarIsShow = true
-      this.maskIsShow = true
-    },
-    hideSidebar () {
-      this.sidebarIsShow = false
-      clearTimeout(this.timer)
-      this.timer = setTimeout(() => {
-        this.maskIsShow = false
-      }, 500)
-    },
-    doNothing () {}
+    toggleSidebar () {
+      this.sidebarIsShow = !this.sidebarIsShow
+    }
   },
   created () {
     this.getNewsLatest().then((res) => {
@@ -130,28 +124,31 @@ export default {
     }
   }
   .mask {
-    background: rgba(0, 0, 0, 0);
+    background: rgba(0, 0, 0, 0.5);
     position: fixed;
     left: 0;
     top: 0;
     right: 0;
     bottom: 0;
     z-index: 1;
-    transition: all 0.5s;
-    &.bg {
-      background: rgba(0, 0, 0, 0.6);
-    }
     .sidebar-menu {
       position: absolute;
       left: 0;
       top: 0;
-      z-index: 100;
-      transition: transform 0.5s;
-      transform: translateX(-100%);
-      &.show {
-        transform: translateX(0);
-      }
+      z-index: 2;
     }
+  }
+  .fade-enter-active, .fade-leave-active {
+    transition: all 0.5s;
+  }
+  .fade-enter, .fade-leave-to {
+    background: rgba(0, 0, 0, 0);
+  }
+  .slide-enter-active, .slide-leave-active {
+    transition: all 0.5s;
+  }
+  .slide-enter, .slide-leave-to {
+    transform: translateX(-100%);
   }
 }
 </style>
