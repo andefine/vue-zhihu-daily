@@ -12,6 +12,10 @@
         </div>
       </div>
     </div>
+    <div class="home-page">
+      <img src="../../assets/img/homePage.png" alt="">
+      <span>首页</span>
+    </div>
   </div>
 </template>
 
@@ -19,6 +23,7 @@
 // 这里在data中设置图片路径时要注意哦，一定要使用import将图片引入，不可以将路径写在data中，否则url-loader将不会解析
 import star from '@/assets/img/star.png'
 import download from '@/assets/img/download.png'
+import { mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -34,7 +39,11 @@ export default {
       ]
     }
   },
+  mounted () {
+    this.getThemes()
+  },
   methods: {
+    ...mapActions(['getThemes'])
   }
 }
 </script>
@@ -82,6 +91,21 @@ export default {
           font-weight: bold;
         }
       }
+    }
+  }
+  .home-page {
+    height: 103px;
+    padding-left: 45px;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    img {
+      width: 32px;
+      height: 32px;
+      margin-right: 33px;
+    }
+    span {
+      color: #00a2ed;
     }
   }
 }

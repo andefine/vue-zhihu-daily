@@ -1,4 +1,8 @@
 export default {
+  // 设置themes
+  SETTHEMES (state, data) {
+    state.themes = data
+  },
   // 设置topStories
   SETTOPSTORIES (state, data) {
     state.topStories = data

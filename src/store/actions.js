@@ -1,6 +1,14 @@
 import axios from 'axios'
 
 export default {
+  // 获取主题日报列表
+  getThemes ({ commit }) {
+    return axios.get('/api/4/themes').then((res) => {
+      if (res.status === 200) {
+        // commit('SETTHEMES', res.data.)
+      }
+    })
+  },
   // 获取最新消息
   getNewsLatest ({ commit }) {
     return axios.get('/api/4/news/latest').then(res => {
