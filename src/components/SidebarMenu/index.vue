@@ -16,17 +16,20 @@
 </template>
 
 <script>
+// 这里在data中设置图片路径时要注意哦，一定要使用import将图片引入，不可以将路径写在data中，否则url-loader将不会解析
+import star from '@/assets/img/star.png'
+import download from '@/assets/img/download.png'
 export default {
   data () {
     return {
       twoItems: [
         {
           title: '我的收藏',
-          img: '../../assets/img/star.png'
+          img: star
         },
         {
           title: '离线下载',
-          img: '../../assets/img/download.png'
+          img: download
         }
       ]
     }
@@ -41,9 +44,45 @@ export default {
   background: #fff;
   width: 634px;
   height: 100%;
+  font-size: 34px;
   .header {
     height: 228px;
     background: #00a2ed;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .user {
+      height: 110px;
+      display: flex;
+      align-items: center;
+      padding-left: 30px;
+      .avatar {
+        height: 70px;
+        width: 70px;
+        border-radius: 50%;
+        margin-right: 26px;
+      }
+    }
+    .content {
+      height: 110px;
+      display: flex;
+      align-items: center;
+      padding-left: 50px;
+      .item {
+        &:last-of-type {
+          margin-left: 80px;
+        }
+        img {
+          width: 32px;
+          height: 32px;
+          margin-right: 40px;
+        }
+        span {
+          font-weight: bold;
+        }
+      }
+    }
   }
 }
 </style>
