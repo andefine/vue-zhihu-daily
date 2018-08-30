@@ -16,6 +16,10 @@
       <img src="../../assets/img/homePage.png" alt="">
       <span>首页</span>
     </div>
+    <div class="themes" v-for="(theme, index) in themes" :key="index">
+      <span>{{theme.name}}</span>
+      <img src="../../assets/img/plus.png" alt="">
+    </div>
   </div>
 </template>
 
@@ -23,7 +27,7 @@
 // 这里在data中设置图片路径时要注意哦，一定要使用import将图片引入，不可以将路径写在data中，否则url-loader将不会解析
 import star from '@/assets/img/star.png'
 import download from '@/assets/img/download.png'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -38,6 +42,9 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    ...mapState(['themes'])
   },
   mounted () {
     this.getThemes()
@@ -54,6 +61,7 @@ export default {
   width: 634px;
   height: 100%;
   font-size: 34px;
+  overflow: scroll;
   .header {
     height: 228px;
     background: #00a2ed;
@@ -106,6 +114,17 @@ export default {
     }
     span {
       color: #00a2ed;
+    }
+  }
+  .themes {
+    height: 104px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 112px 0 39px;
+    img {
+      width: 28px;
+      height: 28px;
     }
   }
 }

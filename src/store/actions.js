@@ -5,7 +5,7 @@ export default {
   getThemes ({ commit }) {
     return axios.get('/api/4/themes').then((res) => {
       if (res.status === 200) {
-        // commit('SETTHEMES', res.data.)
+        commit('SETTHEMES', res.data.others)
       }
     })
   },
