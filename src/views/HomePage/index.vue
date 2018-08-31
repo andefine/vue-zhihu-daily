@@ -44,6 +44,9 @@ export default {
     NewsItem: () => import('@/components/NewsItem'),
     SidebarMenu: () => import('@/components/SidebarMenu')
   },
+  created () {
+    this.loadData()
+  },
   methods: {
     ...mapActions(['getNewsLatest', 'getBefore']),
     // 将yyyymmdd格式的日期数字字符串转成想要的日期字符串，20180820 -> 08月20日 星期x
@@ -79,28 +82,29 @@ export default {
     },
     toggleSidebar () {
       this.sidebarIsShow = !this.sidebarIsShow
-    }
-  },
-  created () {
-    this.getNewsLatest().then((res) => {
-      this.$nextTick(() => {
-        if (!this.scroll) {
-          this.scroll = new BScroll(this.$refs.wrapper, {
-            pullUpLoad: {
-              threshhold: 50
-            },
-            click: true
-          })
-          this.scroll.on('pullingUp', (pos) => {
-            this.getBefore().then(() => {
-              this.scroll.finishPullUp()
+    },
+    loadData () {
+      if (!this.scroll) {
+        this.getNewsLatest().then(res => {
+          this.$nextTick(() => {
+            this.scroll = new BScroll(this.$refs.wrapper, {
+              click: true
+            })
+            this.scroll.on('scrollEnd', (pos) => {
+              if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
+                this.loadData()
+              }
             })
           })
-        } else {
-          this.scroll.refresh()
-        }
-      })
-    })
+        })
+      } else {
+        this.getBefore().then(res => {
+          this.$nextTick(() => {
+            this.scroll.refresh()
+          })
+        })
+      }
+    }
   }
 }
 </script>
