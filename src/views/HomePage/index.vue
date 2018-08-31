@@ -1,6 +1,6 @@
 <template>
-  <div class="home-page" ref="wrapper">
-    <div ref="wrapper">
+  <div class="home-page">
+    <div class="wrapper" ref="wrapper">
       <div>
         <Header v-on:tap-menu="toggleSidebar"></Header>
         <Swiper></Swiper>
@@ -110,6 +110,9 @@ export default {
   height: 100%;
   background: #f3f3f3;
   overflow: scroll;
+  .wrapper {
+    height: 100%;
+  }
   .today-hot, .news-before {
     padding-top: 35px;
     .title {
