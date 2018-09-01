@@ -18,5 +18,9 @@ export default {
   // 获取之前的新闻
   ADDSTORIES (state, data) {
     state.beforeStories.push(data)
+  },
+  // 清空之前的新闻
+  CLEARSTORIES (state) {
+    state.beforeStories = []
   }
 }

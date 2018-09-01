@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 import BScroll from 'better-scroll'
 import moment from 'moment'
 export default {
@@ -48,6 +48,7 @@ export default {
     this.loadData()
   },
   methods: {
+    ...mapMutations(['CLEARSTORIES']),
     ...mapActions(['getNewsLatest', 'getBefore']),
     // 将yyyymmdd格式的日期数字字符串转成想要的日期字符串，20180820 -> 08月20日 星期x
     dateFormat (dateString) {
@@ -90,9 +91,25 @@ export default {
             this.scroll = new BScroll(this.$refs.wrapper, {
               click: true
             })
+            // 上拉加载
             this.scroll.on('scrollEnd', (pos) => {
               if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
-                this.loadData()
+                this.getBefore().then(res => {
+                  this.$nextTick(() => {
+                    this.scroll.refresh()
+                  })
+                })
+              }
+            })
+            // 下拉刷新
+            this.scroll.on('touchEnd', (pos) => {
+              if (pos.y > 50) {
+                this.CLEARSTORIES()
+                this.getNewsLatest().then(() => {
+                  this.$nextTick(() => {
+                    this.scroll.refresh()
+                  })
+                })
               }
             })
           })
