@@ -8,20 +8,34 @@
     <div class="wrapper" ref="wrapper">
       <div class="content">
 
+        <!-- 首页 -->
         <div class="main-page" v-show="pageShow === 'main'">
           <Swiper></Swiper>
           <div class="today-hot">
-            <h3 class="title">今日要闻</h3>
+            <div class="title">
+              <span>今日要闻</span>
+            </div>
             <news-item class="item" v-for="(story, index) in todayHotStories" :key="index" :story="story" @click-to="toNewsDetail(story.id)"></news-item>
           </div>
           <div class="news-before" v-for="(item, outIndex) in beforeStories" :key="outIndex">
-            <h3 class="title">{{dateFormat(item.date)}}</h3>
+            <div class="title">
+              <span>{{dateFormat(item.date)}}</span>
+            </div>
             <news-item class="item" v-for="(story, innerIndx) in item.stories" :key="innerIndx" :story="story" @click-to="toNewsDetail(story.id)"></news-item>
           </div>
         </div>
 
+        <!-- 主题日报页 -->
         <div class="theme-page" v-show="pageShow === 'theme'">
-
+          <div class="top">
+            <img class="bg-img" :src="image403(theme.background)" alt="">
+            <span class="des">{{theme.description}}</span>
+          </div>
+          <div class="editors">
+            <span class="editBy">主编</span>
+            <img class="editor-avatar" :src="image403(editor.avatar)" alt="" v-for="(editor, index) in theme.editors" :key="index">
+          </div>
+          <news-item class="item" v-for="(story, innerIndx) in theme.stories" :key="innerIndx" :story="story" @click-to="toNewsDetail(story.id)"></news-item>
         </div>
 
       </div>
@@ -40,6 +54,7 @@
 import { mapState, mapActions, mapMutations } from 'vuex'
 import BScroll from 'better-scroll'
 import moment from 'moment'
+import image403 from '@/utils/image403'
 export default {
   data () {
     return {
@@ -50,7 +65,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['todayHotStories', 'beforeStories'])
+    ...mapState(['todayHotStories', 'beforeStories', 'theme'])
   },
   components: {
     Header: () => import('@/components/Header'),
@@ -63,7 +78,8 @@ export default {
   },
   methods: {
     ...mapMutations(['CLEARHOMEPAGE']),
-    ...mapActions(['getNewsLatest', 'getBefore']),
+    ...mapActions(['getNewsLatest', 'getBefore', 'getThemeContent']),
+    image403,
     // 将yyyymmdd格式的日期数字字符串转成想要的日期字符串，20180820 -> 08月20日 星期x
     dateFormat (dateString) {
       let day = ''
@@ -142,7 +158,10 @@ export default {
     },
     // 点击不同主题日报显示不同主题日报内容，themeId是SidebarMenu暴露的方法的参数
     toTheme (themeId) {
-      console.log(themeId)
+      this.sidebarIsShow = false
+      this.getThemeContent(themeId).then(() => {
+        this.pageShow = 'theme'
+      })
     }
   }
 }
@@ -169,14 +188,63 @@ export default {
       padding-top: 112px;
     }
   }
-  .today-hot, .news-before {
-    padding-top: 35px;
-    .title {
+  .main-page {
+    .today-hot, .news-before {
+      .title {
+        height: 108px;
+        display: flex;
+        align-items: center;
+        padding: 0 30px;
+        font-size: 28px;
+        font-weight: normal;
+        color: #4d4d4d;
+      }
+      .item {
+        margin: 0 auto 17px;
+      }
+    }
+  }
+  .theme-page {
+    .top {
+      height: 470px;
+      position: relative;
+      overflow: hidden;
+      background: #4d4d4d;
+      .bg-img {
+        width: 100%;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .des {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 55px;
+        color: #fffffc;
+        padding: 0 34px;
+        font-size: 36px;
+        line-height: 44px;
+      }
+    }
+    .editors {
+      height: 108px;
+      display: flex;
+      align-items: center;
+      padding: 0 30px;
       font-size: 28px;
       font-weight: normal;
       color: #4d4d4d;
-      line-height: 28px;
-      margin: 0 0 44px 34px;
+      .editBy {
+        margin-right: 34px;
+      }
+      .editor-avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        margin-right: 24px;
+      }
     }
     .item {
       margin: 0 auto 17px;

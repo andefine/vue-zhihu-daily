@@ -15,12 +15,16 @@ export default {
   SETDATE (state, data) {
     state.date = data
   },
-  // 获取之前的新闻
+  // 添加之前的新闻
   ADDSTORIES (state, data) {
     state.beforeStories.push(data)
   },
   // 清空之前的新闻
   CLEARHOMEPAGE (state) {
     state.beforeStories = []
+  },
+  // 设置主题日报内容
+  SETTHEME (state, data) {
+    state.theme = data
   }
 }
