@@ -2,7 +2,7 @@
   <div class="sidebar" @click.stop.prevent>
     <div class="header">
       <div class="user">
-        <img class="avatar" src="../../assets/img/default_avatar.png" alt="">
+        <img class="avatar" :src="image403('http://pic1.zhimg.com/da8e974dc_m.jpg')" alt="">
         <span class="name">请登录</span>
       </div>
       <div class="content">
@@ -28,6 +28,7 @@
 import star from '@/assets/img/star.png'
 import download from '@/assets/img/download.png'
 import { mapActions, mapState } from 'vuex'
+import image403 from '@/utils/image403'
 export default {
   data () {
     return {
@@ -50,7 +51,8 @@ export default {
     this.getThemes()
   },
   methods: {
-    ...mapActions(['getThemes'])
+    ...mapActions(['getThemes']),
+    image403
   }
 }
 </script>
