@@ -3,7 +3,7 @@
     <link rel="stylesheet" :href="story.css">
     <detail-header v-if="story.id" :storyId="story.id"></detail-header>
     <div class="container">
-      <div class="top">
+      <div class="top" v-if="story.image">
         <img class="img" :src="image403(story.image)" alt="">
         <div class="mask"></div>
         <span class="title">{{story.title}}</span>
