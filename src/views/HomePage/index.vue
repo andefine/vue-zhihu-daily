@@ -61,7 +61,8 @@ export default {
       sidebarIsShow: false, // 控制侧边栏是否显示
       title: '首页', // 头部标题
       // mainPage表示首页，包含swiper、今日热闻、过往新闻
-      pageShow: 'main' // 显示的内容，'main'表示首页(包含swiper、今日热闻、过往新闻)，'theme'表示主题日报页
+      pageShow: 'main', // 显示的内容，'main'表示首页(包含swiper、今日热闻、过往新闻)，'theme'表示主题日报页
+      activeTheme: {} // 被选中的主题日报
     }
   },
   computed: {
@@ -78,7 +79,7 @@ export default {
   },
   methods: {
     ...mapMutations(['CLEARHOMEPAGE']),
-    ...mapActions(['getNewsLatest', 'getBefore', 'getThemeContent']),
+    ...mapActions(['getNewsLatest', 'getBefore', 'getThemeContent', 'addThemeContent']),
     image403,
     // 将yyyymmdd格式的日期数字字符串转成想要的日期字符串，20180820 -> 08月20日 星期x
     dateFormat (dateString) {
@@ -124,11 +125,20 @@ export default {
             // 上拉加载
             this.scroll.on('scrollEnd', (pos) => {
               if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
-                this.getBefore().then(res => {
-                  this.$nextTick(() => {
-                    this.scroll.refresh()
+                // 如果是首页的话继续加载首页的内容，如果是其他主题日报，需要加载其他的主题日报的内容
+                if (this.pageShow === 'main') {
+                  this.getBefore().then(res => {
+                    this.$nextTick(() => {
+                      this.scroll.refresh()
+                    })
                   })
-                })
+                } else if (this.pageShow === 'theme') {
+                  this.addThemeContent(this.activeTheme.id).then(res => {
+                    this.$nextTick(() => {
+                      this.scroll.refresh()
+                    })
+                  })
+                }
               }
             })
             // 下拉刷新
@@ -145,11 +155,11 @@ export default {
           })
         })
       } else {
-        this.getBefore().then(res => {
-          this.$nextTick(() => {
-            this.scroll.refresh()
-          })
-        })
+        // this.getBefore().then(res => {
+        //   this.$nextTick(() => {
+        //     this.scroll.refresh()
+        //   })
+        // })
       }
     },
     // 跳转到新闻详情页
@@ -158,8 +168,9 @@ export default {
     },
     // 点击不同主题日报显示不同主题日报内容，themeId是SidebarMenu暴露的方法的参数
     toTheme (theme) {
+      this.activeTheme = theme
       this.sidebarIsShow = false
-      this.getThemeContent(theme.id).then(() => {
+      this.getThemeContent(theme.id).then((res) => {
         this.title = theme.name
         this.pageShow = 'theme'
         this.scroll.scrollTo(0, 0, 0)

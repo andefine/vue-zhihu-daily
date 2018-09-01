@@ -26,5 +26,9 @@ export default {
   // 设置主题日报内容
   SETTHEME (state, data) {
     state.theme = data
+  },
+  // 添加主题日报内容
+  ADDTHEME (state, data) {
+    state.theme.stories = state.theme.stories.concat(data)
   }
 }

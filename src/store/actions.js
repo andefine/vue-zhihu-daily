@@ -42,5 +42,12 @@ export default {
         commit('SETTHEME', res.data)
       }
     })
+  },
+  // 在主题日报的时候，上拉继续加载该主题日报的过往内容。需要列表中的最后一个的id，而且
+  addThemeContent ({ state, commit }, themeId) {
+    let lastId = state.theme.stories[state.theme.stories.length - 1].id
+    return axios.get(`/api/4/theme/${themeId}/before/${lastId}`).then(res => {
+      commit('ADDTHEME', res.data.stories)
+    })
   }
 }
