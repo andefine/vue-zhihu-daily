@@ -6,11 +6,11 @@
         <Swiper></Swiper>
         <div class="today-hot">
           <h3 class="title">今日要闻</h3>
-          <news-item class="item" v-for="(story, index) in todayHotStories" :key="index" :story="story"></news-item>
+          <news-item class="item" v-for="(story, index) in todayHotStories" :key="index" :story="story" @click-to="toNewsDetail(story.id)"></news-item>
         </div>
         <div class="news-before" v-for="(item, outIndex) in beforeStories" :key="outIndex">
           <h3 class="title">{{dateFormat(item.date)}}</h3>
-          <news-item class="item" v-for="(story, innerIndx) in item.stories" :key="innerIndx" :story="story"></news-item>
+          <news-item class="item" v-for="(story, innerIndx) in item.stories" :key="innerIndx" :story="story" @click-to="toNewsDetail(story.id)"></news-item>
         </div>
       </div>
     </div>
@@ -120,6 +120,10 @@ export default {
           })
         })
       }
+    },
+    // 跳转到新闻详情页
+    toNewsDetail (id) {
+      this.$router.push({ path: `newsDetail/${id}` })
     }
   }
 }

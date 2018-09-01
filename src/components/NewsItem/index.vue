@@ -1,5 +1,5 @@
 <template>
-  <div class="news-item">
+  <div class="news-item" @click="$emit('click-to')">
     <span class="title">{{story.title}}</span>
     <div class="right">
       <img class="img" v-lazy="image403(story.images[0])" alt="">
