@@ -16,7 +16,7 @@
       <img src="../../assets/img/homePage.png" alt="">
       <span>首页</span>
     </div>
-    <div class="themes" v-for="(theme, index) in themes" :key="index" @click="toThemePage(theme.id)">
+    <div class="themes" v-for="(theme, index) in themes" :key="index" @click="$emit('select-theme', theme.id)">
       <span>{{theme.name}}</span>
       <img src="../../assets/img/plus.png" alt="">
     </div>
@@ -50,11 +50,7 @@ export default {
     this.getThemes()
   },
   methods: {
-    ...mapActions(['getThemes']),
-    // 点击每个主题日报跳转到主题日报页
-    toThemePage (id) {
-      this.$router.push({ path: `/themePage/${id}` })
-    }
+    ...mapActions(['getThemes'])
   }
 }
 </script>

@@ -1,27 +1,35 @@
 <template>
   <div class="home-page">
     <Header class="header" v-on:tap-menu="toggleSidebar">
-      <span slot="title">首页</span>
+      <span slot="title">{{title}}</span>
       <img slot="bell" src="../../assets/img/bell.png" alt="">
       <img slot="right-icon" class="more" src="../../assets/img/more.png" alt="">
     </Header>
     <div class="wrapper" ref="wrapper">
       <div class="content">
-        <Swiper></Swiper>
-        <div class="today-hot">
-          <h3 class="title">今日要闻</h3>
-          <news-item class="item" v-for="(story, index) in todayHotStories" :key="index" :story="story" @click-to="toNewsDetail(story.id)"></news-item>
+
+        <div class="main-page" v-show="pageShow === 'main'">
+          <Swiper></Swiper>
+          <div class="today-hot">
+            <h3 class="title">今日要闻</h3>
+            <news-item class="item" v-for="(story, index) in todayHotStories" :key="index" :story="story" @click-to="toNewsDetail(story.id)"></news-item>
+          </div>
+          <div class="news-before" v-for="(item, outIndex) in beforeStories" :key="outIndex">
+            <h3 class="title">{{dateFormat(item.date)}}</h3>
+            <news-item class="item" v-for="(story, innerIndx) in item.stories" :key="innerIndx" :story="story" @click-to="toNewsDetail(story.id)"></news-item>
+          </div>
         </div>
-        <div class="news-before" v-for="(item, outIndex) in beforeStories" :key="outIndex">
-          <h3 class="title">{{dateFormat(item.date)}}</h3>
-          <news-item class="item" v-for="(story, innerIndx) in item.stories" :key="innerIndx" :story="story" @click-to="toNewsDetail(story.id)"></news-item>
+
+        <div class="theme-page" v-show="pageShow === 'theme'">
+
         </div>
+
       </div>
     </div>
     <transition name="fade">
       <div class="mask" v-show="sidebarIsShow" @click="toggleSidebar">
         <transition name="slide">
-          <sidebar-menu class="sidebar-menu" v-show="sidebarIsShow"></sidebar-menu>
+          <sidebar-menu class="sidebar-menu" v-show="sidebarIsShow" @select-theme="toTheme"></sidebar-menu>
         </transition>
       </div>
     </transition>
@@ -35,7 +43,10 @@ import moment from 'moment'
 export default {
   data () {
     return {
-      sidebarIsShow: false // 控制侧边栏是否显示
+      sidebarIsShow: false, // 控制侧边栏是否显示
+      title: '首页', // 头部标题
+      // mainPage表示首页，包含swiper、今日热闻、过往新闻
+      pageShow: 'main' // 显示的内容，'main'表示首页(包含swiper、今日热闻、过往新闻)，'theme'表示主题日报页
     }
   },
   computed: {
@@ -128,6 +139,10 @@ export default {
     // 跳转到新闻详情页
     toNewsDetail (id) {
       this.$router.push({ path: `newsDetail/${id}` })
+    },
+    // 点击不同主题日报显示不同主题日报内容，themeId是SidebarMenu暴露的方法的参数
+    toTheme (themeId) {
+      console.log(themeId)
     }
   }
 }
