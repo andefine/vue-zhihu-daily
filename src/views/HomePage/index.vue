@@ -1,8 +1,8 @@
 <template>
   <div class="home-page">
+    <Header class="header" v-on:tap-menu="toggleSidebar"></Header>
     <div class="wrapper" ref="wrapper">
-      <div>
-        <Header v-on:tap-menu="toggleSidebar"></Header>
+      <div class="content">
         <Swiper></Swiper>
         <div class="today-hot">
           <h3 class="title">今日要闻</h3>
@@ -31,8 +31,7 @@ import moment from 'moment'
 export default {
   data () {
     return {
-      sidebarIsShow: false,
-      timer: null
+      sidebarIsShow: false // 控制侧边栏是否显示
     }
   },
   computed: {
@@ -48,7 +47,7 @@ export default {
     this.loadData()
   },
   methods: {
-    ...mapMutations(['CLEARSTORIES']),
+    ...mapMutations(['CLEARHOMEPAGE']),
     ...mapActions(['getNewsLatest', 'getBefore']),
     // 将yyyymmdd格式的日期数字字符串转成想要的日期字符串，20180820 -> 08月20日 星期x
     dateFormat (dateString) {
@@ -104,7 +103,7 @@ export default {
             // 下拉刷新
             this.scroll.on('touchEnd', (pos) => {
               if (pos.y > 50) {
-                this.CLEARSTORIES()
+                this.CLEARHOMEPAGE()
                 this.getNewsLatest().then(() => {
                   this.$nextTick(() => {
                     this.scroll.refresh()
@@ -131,8 +130,18 @@ export default {
   height: 100%;
   background: #f3f3f3;
   overflow: scroll;
+  .header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 5;
+  }
   .wrapper {
     height: 100%;
+    .content {
+      padding-top: 112px;
+    }
   }
   .today-hot, .news-before {
     padding-top: 35px;
@@ -154,12 +163,12 @@ export default {
     top: 0;
     right: 0;
     bottom: 0;
-    z-index: 1;
+    z-index: 9;
     .sidebar-menu {
       position: absolute;
       left: 0;
       top: 0;
-      z-index: 2;
+      z-index: 10;
     }
   }
   .fade-enter-active, .fade-leave-active {

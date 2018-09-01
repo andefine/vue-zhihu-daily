@@ -20,7 +20,7 @@ export default {
     state.beforeStories.push(data)
   },
   // 清空之前的新闻
-  CLEARSTORIES (state) {
+  CLEARHOMEPAGE (state) {
     state.beforeStories = []
   }
 }
