@@ -16,6 +16,11 @@ export default new Router({
       component: () => import('@/views/HomePage')
     },
     {
+      path: '/themePage/:id',
+      name: 'themePage',
+      component: () => import('@/views/ThemePage')
+    },
+    {
       path: '/newsDetail/:id',
       name: 'newsDetail',
       component: () => import('@/views/NewsDetail')
