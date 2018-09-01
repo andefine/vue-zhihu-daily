@@ -1,6 +1,10 @@
 <template>
   <div class="home-page">
-    <Header class="header" v-on:tap-menu="toggleSidebar"></Header>
+    <Header class="header" v-on:tap-menu="toggleSidebar">
+      <span slot="title">首页</span>
+      <img slot="bell" src="../../assets/img/bell.png" alt="">
+      <img slot="right-icon" class="more" src="../../assets/img/more.png" alt="">
+    </Header>
     <div class="wrapper" ref="wrapper">
       <div class="content">
         <Swiper></Swiper>
@@ -140,6 +144,9 @@ export default {
     right: 0;
     top: 0;
     z-index: 5;
+    .more {
+      margin: 0 30px 0 50px;
+    }
   }
   .wrapper {
     height: 100%;

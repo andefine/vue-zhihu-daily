@@ -2,11 +2,11 @@
   <div class="header">
     <div class="left">
       <img class="menu" src="../../assets/img/menu.png" alt="" v-on:click="tapMenu">
-      <span class="title">首页</span>
+      <slot name="title"></slot>
     </div>
     <div class="right">
-      <img src="../../assets/img/bell.png" alt="">
-      <img class="more" src="../../assets/img/more.png" alt="">
+      <slot name="bell"></slot>
+      <slot name="right-icon"></slot>
     </div>
   </div>
 </template>
@@ -29,6 +29,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 40px;
   img {
     width: 40px;
     height: 40px;
@@ -40,14 +41,6 @@ export default {
   .left {
     .menu {
       margin: 0 70px 0 40px;
-    }
-    .title {
-      font-size: 40px;
-    }
-  }
-  .right {
-    .more {
-      margin: 0 30px 0 50px;
     }
   }
 }
