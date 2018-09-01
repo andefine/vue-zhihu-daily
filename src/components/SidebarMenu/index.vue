@@ -12,11 +12,11 @@
         </div>
       </div>
     </div>
-    <div class="home-page">
+    <div class="home-page" @click="$emit('select-home')">
       <img src="../../assets/img/homePage.png" alt="">
       <span>首页</span>
     </div>
-    <div class="themes" v-for="(theme, index) in themes" :key="index" @click="$emit('select-theme', theme.id)">
+    <div class="themes" v-for="(theme, index) in themes" :key="index" @click="$emit('select-theme', theme)">
       <span>{{theme.name}}</span>
       <img src="../../assets/img/plus.png" alt="">
     </div>

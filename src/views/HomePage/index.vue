@@ -43,7 +43,7 @@
     <transition name="fade">
       <div class="mask" v-show="sidebarIsShow" @click="toggleSidebar">
         <transition name="slide">
-          <sidebar-menu class="sidebar-menu" v-show="sidebarIsShow" @select-theme="toTheme"></sidebar-menu>
+          <sidebar-menu class="sidebar-menu" v-show="sidebarIsShow"    @select-theme="toTheme" @select-home="toHomePage"></sidebar-menu>
         </transition>
       </div>
     </transition>
@@ -65,7 +65,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['todayHotStories', 'beforeStories', 'theme'])
+    ...mapState(['todayHotStories', 'beforeStories', 'themes', 'theme'])
   },
   components: {
     Header: () => import('@/components/Header'),
@@ -157,11 +157,20 @@ export default {
       this.$router.push({ path: `newsDetail/${id}` })
     },
     // 点击不同主题日报显示不同主题日报内容，themeId是SidebarMenu暴露的方法的参数
-    toTheme (themeId) {
+    toTheme (theme) {
       this.sidebarIsShow = false
-      this.getThemeContent(themeId).then(() => {
+      this.getThemeContent(theme.id).then(() => {
+        this.title = theme.name
         this.pageShow = 'theme'
+        this.scroll.scrollTo(0, 0, 0)
       })
+    },
+    // 点击侧边栏的首页
+    toHomePage () {
+      this.sidebarIsShow = false
+      this.pageShow = 'main'
+      this.title = '首页'
+      this.scroll.scrollTo(0, 0, 0)
     }
   }
 }
