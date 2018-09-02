@@ -191,12 +191,6 @@ export default {
       this.title = '首页'
       this.scroll.scrollTo(0, 0, 0)
     },
-    // notComplete () {
-    //   this.$toast({
-    //     message: '假的！点了没用那种，气不气(～￣▽￣)～ ',
-    //     duration: 700
-    //   })
-    // },
     // 根据主题日报名判断是否在已订阅的主题日报列表中
     themeIsSubscribed (themeName) {
       return this.themeSubscribed.indexOf(themeName) > -1
