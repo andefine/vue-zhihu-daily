@@ -2,8 +2,9 @@
   <div class="home-page">
     <Header class="header" v-on:tap-menu="toggleSidebar">
       <span slot="title">{{title}}</span>
-      <img slot="bell" src="../../assets/img/bell.png" alt="">
-      <img slot="right-icon" class="more" src="../../assets/img/more.png" alt="">
+      <img slot="bell" src="../../assets/img/bell.png" alt="" v-show="pageShow === 'main'">
+      <img slot="right-icon" class="more" src="../../assets/img/more.png" alt="" v-show="pageShow === 'main'">
+      <img slot="right-icon" class="plus" src="../../assets/img/circle_plus.png" alt="" v-show="pageShow === 'theme'">
     </Header>
     <div class="wrapper" ref="wrapper">
       <div class="content">
@@ -200,7 +201,7 @@ export default {
     right: 0;
     top: 0;
     z-index: 5;
-    .more {
+    .more, .plus {
       margin: 0 30px 0 50px;
     }
   }
