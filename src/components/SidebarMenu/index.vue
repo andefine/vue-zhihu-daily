@@ -18,7 +18,8 @@
     </div>
     <div class="themes" :class="pageShow === 'theme' && activeTheme.id === theme.id ? 'active' : ''" v-for="(theme, index) in themes" :key="index" @click="$emit('select-theme', theme)">
       <span>{{theme.name}}</span>
-      <img src="../../assets/img/plus.png" alt="">
+      <img v-if="themeIsSubscribed(theme.name)" class="right-arrow" src="../../assets/img/left_arrow.png" alt="">
+      <img v-else src="../../assets/img/plus.png" alt="" @click.stop="subscribeTheme(theme.name)">
     </div>
   </div>
 </template>
@@ -27,7 +28,7 @@
 // 这里在data中设置图片路径时要注意哦，一定要使用import将图片引入，不可以将路径写在data中，否则url-loader将不会解析
 import star from '@/assets/img/star.png'
 import download from '@/assets/img/download.png'
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapMutations } from 'vuex'
 import image403 from '@/utils/image403'
 export default {
   data () {
@@ -49,12 +50,14 @@ export default {
     activeTheme: Object
   },
   computed: {
-    ...mapState(['themes'])
+    ...mapState(['themes', 'themeSubscribed'])
   },
   mounted () {
+    this.GETTHEMESUBSCRIBED()
     this.getThemes()
   },
   methods: {
+    ...mapMutations(['GETTHEMESUBSCRIBED', 'ADDTHEMESUBSCRIBED']),
     ...mapActions(['getThemes']),
     image403,
     notComplete () {
@@ -62,6 +65,18 @@ export default {
         message: '假的！点了没用那种，气不气(～￣▽￣)～ ',
         duration: 700
       })
+    },
+    // 点击侧边栏各个主题日报的加号订阅该主题日报，传入日报名称
+    subscribeTheme (themeName) {
+      this.ADDTHEMESUBSCRIBED(themeName)
+      this.$toast({
+        message: '已关注',
+        duration: 1000
+      })
+    },
+    // 计算显示的某一项主题日报是否已经被订阅。包含的话表示已订阅，返回true
+    themeIsSubscribed (themeName) {
+      return this.themeSubscribed.indexOf(themeName) > -1
     }
   }
 }
@@ -142,6 +157,9 @@ export default {
     img {
       width: 28px;
       height: 28px;
+    }
+    .right-arrow {
+      transform: rotate(180deg);
     }
   }
 }

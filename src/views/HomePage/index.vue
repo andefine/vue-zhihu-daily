@@ -2,9 +2,14 @@
   <div class="home-page">
     <Header class="header" v-on:tap-menu="toggleSidebar">
       <span slot="title">{{title}}</span>
-      <img slot="bell" src="../../assets/img/bell.png" alt="" v-show="pageShow === 'main'">
-      <img slot="right-icon" class="more" src="../../assets/img/more.png" alt="" v-show="pageShow === 'main'">
-      <img slot="right-icon" class="plus" src="../../assets/img/circle_plus.png" alt="" v-show="pageShow === 'theme'" @click="notComplete">
+      <template v-if="pageShow === 'main'">
+        <img slot="bell" src="../../assets/img/bell.png" alt="">
+        <img slot="right-icon" class="more" src="../../assets/img/more.png" alt="">
+      </template>
+      <template v-if="pageShow === 'theme'">
+        <img v-if="themeIsSubscribed(activeTheme.name)" slot="right-icon" class="subtract" src="../../assets/img/subtract.png" alt="" @click="unsubscribeTheme(activeTheme.name)">
+        <img v-else slot="right-icon" class="plus" src="../../assets/img/circle_plus.png" alt="" @click="subscribeTheme(activeTheme.name)">
+      </template>
     </Header>
     <div class="wrapper" ref="wrapper">
       <div class="content">
@@ -67,7 +72,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['todayHotStories', 'beforeStories', 'themes', 'theme'])
+    ...mapState(['todayHotStories', 'beforeStories', 'themes', 'theme', 'themeSubscribed'])
   },
   components: {
     Header: () => import('@/components/Header'),
@@ -79,7 +84,7 @@ export default {
     this.loadData()
   },
   methods: {
-    ...mapMutations(['CLEARHOMEPAGE']),
+    ...mapMutations(['CLEARHOMEPAGE', 'ADDTHEMESUBSCRIBED', 'REMOVETHEMESUBSCRIBED']),
     ...mapActions(['getNewsLatest', 'getBefore', 'getThemeContent', 'addThemeContent']),
     image403,
     // 将yyyymmdd格式的日期数字字符串转成想要的日期字符串，20180820 -> 08月20日 星期x
@@ -186,10 +191,30 @@ export default {
       this.title = '首页'
       this.scroll.scrollTo(0, 0, 0)
     },
-    notComplete () {
+    // notComplete () {
+    //   this.$toast({
+    //     message: '假的！点了没用那种，气不气(～￣▽￣)～ ',
+    //     duration: 700
+    //   })
+    // },
+    // 根据主题日报名判断是否在已订阅的主题日报列表中
+    themeIsSubscribed (themeName) {
+      return this.themeSubscribed.indexOf(themeName) > -1
+    },
+    // 订阅某主题日报
+    subscribeTheme (themeName) {
+      this.ADDTHEMESUBSCRIBED(themeName)
       this.$toast({
-        message: '假的！点了没用那种，气不气(～￣▽￣)～ ',
-        duration: 700
+        message: '已关注',
+        duration: 1000
+      })
+    },
+    // 取消订阅某主题日报
+    unsubscribeTheme (themeName) {
+      this.REMOVETHEMESUBSCRIBED(themeName)
+      this.$toast({
+        message: '已取消关注',
+        duration: 1000
       })
     }
   }
@@ -207,7 +232,7 @@ export default {
     right: 0;
     top: 0;
     z-index: 5;
-    .more, .plus {
+    .more, .plus, .subtract {
       margin: 0 30px 0 50px;
     }
   }
