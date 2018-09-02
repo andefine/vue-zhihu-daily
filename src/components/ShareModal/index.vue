@@ -4,7 +4,7 @@
       <span>分享</span>
     </div>
     <div class="share-content">
-      <div class="item" v-for="(item, index) in shareItems" :key="index">
+      <div class="item" v-for="(item, index) in shareItems" :key="index" @click="notComplete">
         <img class="icon" :src="item.img" alt="">
         <span class="name">{{item.name}}</span>
       </div>
@@ -53,6 +53,14 @@ export default {
           img: morePlat
         }
       ]
+    }
+  },
+  methods: {
+    notComplete () {
+      this.$toast({
+        message: '你觉得我会做这个功能吗？不可能不存在别想了',
+        duration: 200
+      })
     }
   }
 }
