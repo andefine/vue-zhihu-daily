@@ -4,7 +4,7 @@
       <span slot="title">{{title}}</span>
       <img slot="bell" src="../../assets/img/bell.png" alt="" v-show="pageShow === 'main'">
       <img slot="right-icon" class="more" src="../../assets/img/more.png" alt="" v-show="pageShow === 'main'">
-      <img slot="right-icon" class="plus" src="../../assets/img/circle_plus.png" alt="" v-show="pageShow === 'theme'">
+      <img slot="right-icon" class="plus" src="../../assets/img/circle_plus.png" alt="" v-show="pageShow === 'theme'" @click="notComplete">
     </Header>
     <div class="wrapper" ref="wrapper">
       <div class="content">
@@ -185,6 +185,12 @@ export default {
       this.pageShow = 'main'
       this.title = '首页'
       this.scroll.scrollTo(0, 0, 0)
+    },
+    notComplete () {
+      this.$toast({
+        message: '假的！点了没用那种，气不气(～￣▽￣)～ ',
+        duration: 700
+      })
     }
   }
 }
