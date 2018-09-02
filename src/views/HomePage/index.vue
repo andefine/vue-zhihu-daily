@@ -144,22 +144,24 @@ export default {
             // 下拉刷新
             this.scroll.on('touchEnd', (pos) => {
               if (pos.y > 50) {
-                this.CLEARHOMEPAGE()
-                this.getNewsLatest().then(() => {
-                  this.$nextTick(() => {
-                    this.scroll.refresh()
+                if (this.pageShow === 'main') {
+                  this.CLEARHOMEPAGE()
+                  this.getNewsLatest().then(() => {
+                    this.$nextTick(() => {
+                      this.scroll.refresh()
+                    })
                   })
-                })
+                } else if (this.pageShow === 'theme') {
+                  this.getThemeContent(this.activeTheme.id).then(() => {
+                    this.$nextTick(() => {
+                      this.scroll.refresh()
+                    })
+                  })
+                }
               }
             })
           })
         })
-      } else {
-        // this.getBefore().then(res => {
-        //   this.$nextTick(() => {
-        //     this.scroll.refresh()
-        //   })
-        // })
       }
     },
     // 跳转到新闻详情页
