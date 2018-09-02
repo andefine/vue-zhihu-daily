@@ -12,11 +12,11 @@
         </div>
       </div>
     </div>
-    <div class="home-page" @click="$emit('select-home')">
+    <div class="home-page" :class="pageShow === 'main' ? 'active' : ''" @click="$emit('select-home')">
       <img src="../../assets/img/homePage.png" alt="">
       <span>首页</span>
     </div>
-    <div class="themes" v-for="(theme, index) in themes" :key="index" @click="$emit('select-theme', theme)">
+    <div class="themes" :class="pageShow === 'theme' && activeTheme.id === theme.id ? 'active' : ''" v-for="(theme, index) in themes" :key="index" @click="$emit('select-theme', theme)">
       <span>{{theme.name}}</span>
       <img src="../../assets/img/plus.png" alt="">
     </div>
@@ -43,6 +43,10 @@ export default {
         }
       ]
     }
+  },
+  props: {
+    pageShow: String,
+    activeTheme: Object
   },
   computed: {
     ...mapState(['themes'])
@@ -106,9 +110,11 @@ export default {
   .home-page {
     height: 103px;
     padding-left: 45px;
-    background: #f0f0f0;
     display: flex;
     align-items: center;
+    &.active {
+      background: #f0f0f0;
+    }
     img {
       width: 32px;
       height: 32px;
@@ -124,6 +130,9 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding: 0 112px 0 39px;
+    &.active {
+      background: #f0f0f0;
+    }
     img {
       width: 28px;
       height: 28px;

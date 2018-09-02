@@ -43,7 +43,7 @@
     <transition name="fade">
       <div class="mask" v-show="sidebarIsShow" @click="toggleSidebar">
         <transition name="slide">
-          <sidebar-menu class="sidebar-menu" v-show="sidebarIsShow"    @select-theme="toTheme" @select-home="toHomePage"></sidebar-menu>
+          <sidebar-menu class="sidebar-menu" v-show="sidebarIsShow"    @select-theme="toTheme" @select-home="toHomePage" :page-show="pageShow" :active-theme="activeTheme"></sidebar-menu>
         </transition>
       </div>
     </transition>
