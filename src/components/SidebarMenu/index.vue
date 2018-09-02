@@ -2,11 +2,11 @@
   <div class="sidebar" @click.stop.prevent>
     <div class="header">
       <div class="user">
-        <img class="avatar" :src="image403('http://pic1.zhimg.com/da8e974dc_m.jpg')" alt="">
-        <span class="name">请登录</span>
+        <img class="avatar" @click="notComplete" :src="image403('http://pic1.zhimg.com/da8e974dc_m.jpg')" alt="">
+        <span class="name" @click="notComplete">请登录</span>
       </div>
       <div class="content">
-        <div class="item" v-for="(item, index) in twoItems" :key="index">
+        <div class="item" v-for="(item, index) in twoItems" :key="index" @click="notComplete">
           <img :src="item.img" alt="">
           <span>{{item.title}}</span>
         </div>
@@ -56,7 +56,13 @@ export default {
   },
   methods: {
     ...mapActions(['getThemes']),
-    image403
+    image403,
+    notComplete () {
+      this.$toast({
+        message: '假的！点了没用那种，气不气(～￣▽￣)～ ',
+        duration: 700
+      })
+    }
   }
 }
 </script>
