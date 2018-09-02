@@ -3,7 +3,7 @@
     <Header class="header" v-on:tap-menu="toggleSidebar">
       <span slot="title">{{title}}</span>
       <template v-if="pageShow === 'main'">
-        <img slot="bell" src="../../assets/img/bell.png" alt="">
+        <img slot="bell" src="../../assets/img/bell.png" alt="" @click="notComplete">
         <img slot="right-icon" class="more" src="../../assets/img/more.png" alt="">
       </template>
       <template v-if="pageShow === 'theme'">
@@ -190,6 +190,12 @@ export default {
       this.pageShow = 'main'
       this.title = '首页'
       this.scroll.scrollTo(0, 0, 0)
+    },
+    notComplete () {
+      this.$toast({
+        message: '假的！点了没用那种，气不气(～￣▽￣)～ ',
+        duration: 700
+      })
     },
     // 根据主题日报名判断是否在已订阅的主题日报列表中
     themeIsSubscribed (themeName) {
