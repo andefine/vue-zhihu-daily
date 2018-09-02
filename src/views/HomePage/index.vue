@@ -4,13 +4,15 @@
       <span slot="title">{{title}}</span>
       <template v-if="pageShow === 'main'">
         <img slot="bell" src="../../assets/img/bell.png" alt="" @click="notComplete">
-        <img slot="right-icon" class="more" src="../../assets/img/more.png" alt="">
+        <img slot="right-icon" class="more" src="../../assets/img/more.png" alt="" @click="toggleMore">
       </template>
       <template v-if="pageShow === 'theme'">
         <img v-if="themeIsSubscribed(activeTheme.name)" slot="right-icon" class="subtract" src="../../assets/img/subtract.png" alt="" @click="unsubscribeTheme(activeTheme.name)">
         <img v-else slot="right-icon" class="plus" src="../../assets/img/circle_plus.png" alt="" @click="subscribeTheme(activeTheme.name)">
       </template>
     </Header>
+
+    <!-- 滚动区域 -->
     <div class="wrapper" ref="wrapper">
       <div class="content">
 
@@ -46,6 +48,8 @@
 
       </div>
     </div>
+
+    <!-- 侧边栏 -->
     <transition name="fade">
       <div class="mask" v-show="sidebarIsShow" @click="toggleSidebar">
         <transition name="slide">
@@ -53,6 +57,18 @@
         </transition>
       </div>
     </transition>
+
+    <div class="more-mask" v-show="moreIsShow" @click="toggleMore">
+      <div class="more-block" @click.stop="notComplete02">
+        <div class="more-item">
+          <span>夜间模式</span>
+        </div>
+        <div class="more-item">
+          <span>设置选项</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -65,6 +81,7 @@ export default {
   data () {
     return {
       sidebarIsShow: false, // 控制侧边栏是否显示
+      moreIsShow: false, // 点击头部右上角三点是否显示更多
       title: '首页', // 头部标题
       // mainPage表示首页，包含swiper、今日热闻、过往新闻
       pageShow: 'main', // 显示的内容，'main'表示首页(包含swiper、今日热闻、过往新闻)，'theme'表示主题日报页
@@ -120,6 +137,9 @@ export default {
     },
     toggleSidebar () {
       this.sidebarIsShow = !this.sidebarIsShow
+    },
+    toggleMore () {
+      this.moreIsShow = !this.moreIsShow
     },
     loadData () {
       if (!this.scroll) {
@@ -193,8 +213,14 @@ export default {
     },
     notComplete () {
       this.$toast({
-        message: '假的！点了没用那种，气不气(～￣▽￣)～ ',
+        message: '假的！点了没用那种，气不气(～￣▽￣)～',
         duration: 700
+      })
+    },
+    notComplete02 () {
+      this.$toast({
+        message: '你觉得我会做这个功能吗？哼，不可能',
+        duration: 200
       })
     },
     // 根据主题日报名判断是否在已订阅的主题日报列表中
@@ -330,6 +356,30 @@ export default {
   }
   .slide-enter, .slide-leave-to {
     transform: translateX(-100%);
+  }
+  .more-mask {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    .more-block {
+      width: 408px;
+      background: #fff;
+      border-radius: 10px;
+      position: absolute;
+      top: 5px;
+      right: 8px;
+      font-size: 34px;
+      box-shadow: 0 1px 10px #000;
+      .more-item {
+        height: 100px;
+        padding: 0 32px;
+        display: flex;
+        align-items: center;
+      }
+    }
   }
 }
 </style>
