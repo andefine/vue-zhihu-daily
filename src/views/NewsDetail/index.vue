@@ -11,6 +11,12 @@
       </div>
       <div class="my-body" v-html="image403(story.body)"></div>
     </div>
+
+    <!-- 点击头部分享按钮显示的分享方式 -->
+    <div class="mask">
+      <share-modal class="share-modal"></share-modal>
+    </div>
+
   </div>
 </template>
 
@@ -24,7 +30,8 @@ export default {
     }
   },
   components: {
-    DetailHeader: () => import('@/components/DetailHeader')
+    DetailHeader: () => import('@/components/DetailHeader'),
+    ShareModal: () => import('@/components/ShareModal')
   },
   mounted () {
     this.getNews()
@@ -82,6 +89,21 @@ export default {
         font-size: 24px;
         opacity: 0.7;
       }
+    }
+  }
+  .mask {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 5;
+    .share-modal {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 }
