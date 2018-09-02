@@ -1,7 +1,7 @@
 <template>
   <div class="news-detail">
     <link rel="stylesheet" :href="story.css">
-    <detail-header v-if="story.id" :storyId="story.id"></detail-header>
+    <detail-header v-if="story.id" :storyId="story.id" @show-share="toggleShareModal"></detail-header>
     <div class="container">
       <div class="top" v-if="story.image">
         <img class="img" :src="image403(story.image)" alt="">
@@ -13,9 +13,11 @@
     </div>
 
     <!-- 点击头部分享按钮显示的分享方式 -->
-    <div class="mask">
-      <share-modal class="share-modal"></share-modal>
-    </div>
+    <transition name="fade">
+      <div class="mask" v-show="shareModalIsShow" @click="toggleShareModal">
+        <share-modal class="share-modal" v-show="shareModalIsShow"></share-modal>
+      </div>
+    </transition>
 
   </div>
 </template>
@@ -26,7 +28,8 @@ import image403 from '../../utils/image403'
 export default {
   data () {
     return {
-      story: {}
+      story: {},
+      shareModalIsShow: false // 控制分享modal是否显示
     }
   },
   components: {
@@ -44,6 +47,9 @@ export default {
           this.story = res.data
         }
       })
+    },
+    toggleShareModal () {
+      this.shareModalIsShow = !this.shareModalIsShow
     }
   }
 }
@@ -105,6 +111,12 @@ export default {
       top: 50%;
       transform: translate(-50%, -50%);
     }
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity 0.2s;
   }
 }
 </style>

@@ -4,7 +4,7 @@
       <img class="back" src="../../assets/img/back.png" alt="">
     </div>
     <div class="right">
-      <img class="item" src="../../assets/img/share.png" alt="">
+      <img class="item" src="../../assets/img/share.png" alt="" @click="$emit('show-share')">
       <img class="item" src="../../assets/img/star.png" alt="">
       <div class="comment item" @click="toCommnent">
         <img src="../../assets/img/comment.png" alt="">

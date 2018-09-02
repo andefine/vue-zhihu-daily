@@ -1,5 +1,5 @@
 <template>
-  <div class="share-modal">
+  <div class="share-modal" @click.stop>
     <div class="header">
       <span>分享</span>
     </div>
