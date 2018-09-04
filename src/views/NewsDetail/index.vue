@@ -102,8 +102,8 @@ export default {
 
 <style lang="scss" scoped>
 .news-detail {
-  height: 100%;
-  overflow: auto;
+  // height: 100%;
+  // overflow: auto;
   .detail-header {
     position: fixed;
     top: 0;
