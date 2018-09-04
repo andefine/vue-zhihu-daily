@@ -1,7 +1,7 @@
 <template>
   <div class="news-detail">
     <link rel="stylesheet" :href="story.css">
-    <detail-header v-if="story.id" :storyId="story.id" @show-share="toggleShareModal"></detail-header>
+    <detail-header v-if="story.id" :story-extra="storyExtra" @show-share="toggleShareModal" @to-comment="toComment"></detail-header>
     <div class="container">
       <div class="top" v-if="story.image">
         <img class="img" :src="image403(story.image)" alt="">
@@ -29,6 +29,7 @@ export default {
   data () {
     return {
       story: {},
+      storyExtra: {},
       shareModalIsShow: false // 控制分享modal是否显示
     }
   },
@@ -52,11 +53,14 @@ export default {
   },
   activated () {
     if (!this.$route.meta.isBack) {
-      this.getNews()
+      this.getNews().then(() => {
+        this.getStoryExtra()
+      })
     }
   },
   methods: {
     image403,
+    // 获取新闻详情
     getNews () {
       return axios.get(`/api/4/news/${this.$route.params.id}`).then(res => {
         if (res.status === 200) {
@@ -64,8 +68,24 @@ export default {
         }
       })
     },
+    // 获取新闻额外消息，获取到的内容需要传递给DetailHeader这个组件
+    getStoryExtra () {
+      return axios.get(`/api/4/story-extra/${this.story.id}`).then((res) => {
+        if (res.status === 200) {
+          this.storyExtra = res.data
+        }
+      })
+    },
     toggleShareModal () {
       this.shareModalIsShow = !this.shareModalIsShow
+    },
+    toComment () {
+      this.$router.push({
+        name: 'comment',
+        params: {
+          id: this.story.id
+        }
+      })
     }
   }
 }

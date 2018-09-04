@@ -1,12 +1,12 @@
 <template>
-  <div class="header">
+  <div class="header" v-if="storyExtra">
     <div class="left" @click="back">
       <img class="back" src="../../assets/img/back.png" alt="">
     </div>
     <div class="right">
       <img class="item" src="../../assets/img/share.png" alt="" @click="$emit('show-share')">
       <img class="item" src="../../assets/img/star.png" alt="">
-      <div class="comment item" @click="toCommnent">
+      <div class="comment item" @click="$emit('to-comment')">
         <img src="../../assets/img/comment.png" alt="">
         <span class="num">{{numFilter(storyExtra.comments)}}</span>
       </div>
@@ -19,27 +19,12 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 export default {
-  data () {
-    return {
-      storyExtra: {}
-    }
-  },
   props: {
-    storyId: Number
-  },
-  mounted () {
-    this.getStoryExtra()
+    storyExtra: Object
   },
   methods: {
-    getStoryExtra () {
-      return axios.get(`/api/4/story-extra/${this.storyId}`).then((res) => {
-        if (res.status === 200) {
-          this.storyExtra = res.data
-        }
-      })
-    },
     back () {
       this.$router.back()
     },
@@ -50,14 +35,6 @@ export default {
       } else {
         return num
       }
-    },
-    toCommnent () {
-      this.$router.push({
-        name: 'comment',
-        params: {
-          id: this.storyId
-        }
-      })
     }
   }
 }
