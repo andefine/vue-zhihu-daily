@@ -6,7 +6,7 @@
         <span class="title">{{storyExtra.comments}}条点评</span>
       </div>
       <div class="right">
-        <img class="write" src="../../assets/img/write.png" alt="">
+        <img class="write" src="../../assets/img/write.png" alt="" @click="notComplete">
       </div>
     </div>
     <div class="long-comment">
@@ -81,6 +81,12 @@ export default {
     // 返回上一页
     back () {
       this.$router.back()
+    },
+    notComplete () {
+      this.$toast({
+        message: '假的！点了没用那种，气不气(～￣▽￣)～',
+        duration: 200
+      })
     }
   }
 }
