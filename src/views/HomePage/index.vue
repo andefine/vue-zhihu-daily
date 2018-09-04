@@ -85,7 +85,8 @@ export default {
       title: '首页', // 头部标题
       // mainPage表示首页，包含swiper、今日热闻、过往新闻
       pageShow: 'main', // 显示的内容，'main'表示首页(包含swiper、今日热闻、过往新闻)，'theme'表示主题日报页
-      activeTheme: {} // 被选中的主题日报
+      activeTheme: {}, // 被选中的主题日报
+      isFirstEnter: false // 是否第一次进入
     }
   },
   computed: {
@@ -98,7 +99,7 @@ export default {
     SidebarMenu: () => import('@/components/SidebarMenu')
   },
   created () {
-    // this.loadData()
+    this.isFirstEnter = true // 只有第一次进入或者刷新页面后才会执行此钩子函数，使用keep-alive(2+次)进入不会执行此钩子函数
   },
   beforeRouteEnter (to, from, next) {
     // 如果是从新闻详情页跳转过来的，说明是返回
@@ -108,8 +109,9 @@ export default {
     next()
   },
   activated () {
-    // 如果不是从newsDetail返回的，则需要重新加载数据
-    if (!this.$route.meta.isBack) {
+    if (!this.$route.meta.isBack || this.isFirstEnter) {
+      // 如果isBack是false，表明不是从NewsDetail返回的，需要重新获取数据
+      // 如果isFirstEnter是true，表明是第一次进入此页面或用户刷新了页面，需要重新获取数据
       this.loadData()
     }
     // 恢复成默认的false，避免isBack一直是true，导致下次无法获取数据

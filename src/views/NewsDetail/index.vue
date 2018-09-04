@@ -1,7 +1,7 @@
 <template>
   <div class="news-detail">
     <link rel="stylesheet" :href="story.css">
-    <detail-header v-if="story.id" :story-extra="storyExtra" @show-share="toggleShareModal" @to-comment="toComment"></detail-header>
+    <detail-header v-if="story.id" :story-extra="storyExtra" @show-share="toggleShareModal" @collect="notComplete" @to-comment="toComment"></detail-header>
     <div class="container">
       <div class="top" v-if="story.image">
         <img class="img" :src="image403(story.image)" alt="">
@@ -30,7 +30,8 @@ export default {
     return {
       story: {},
       storyExtra: {},
-      shareModalIsShow: false // 控制分享modal是否显示
+      shareModalIsShow: false, // 控制分享modal是否显示
+      isFirstEnter: false // 是否是第一次进入
     }
   },
   components: {
@@ -38,8 +39,8 @@ export default {
     ShareModal: () => import('@/components/ShareModal')
   },
   // 此处是在该组件挂载之后执行的内容，但是在<router-view>外使用了<keep-alive>时，从该页返回到HomePage之后，这一页依然是缓存的，不会被清除，所以在HomePage点击另一条新闻进入这一页时，这一页依然会保持和第一次进入的内容一样。
-  mounted () {
-    // this.getNews()
+  created () {
+    this.isFirstEnter = true
   },
   beforeRouteEnter (to, from, next) {
     if (from.name === 'homePage') {
@@ -52,7 +53,7 @@ export default {
     next()
   },
   activated () {
-    if (!this.$route.meta.isBack) {
+    if (!this.$route.meta.isBack || this.isFirstEnter) {
       this.getNews().then(() => {
         this.getStoryExtra()
       })
@@ -76,8 +77,16 @@ export default {
         }
       })
     },
+    // 显示或隐藏分享框
     toggleShareModal () {
       this.shareModalIsShow = !this.shareModalIsShow
+    },
+    // 点击收藏，略略略
+    notComplete () {
+      this.$toast({
+        message: '假的！点了没用那种，气不气(～￣▽￣)～',
+        duration: 200
+      })
     },
     toComment () {
       this.$router.push({

@@ -5,7 +5,7 @@
     </div>
     <div class="right">
       <img class="item" src="../../assets/img/share.png" alt="" @click="$emit('show-share')">
-      <img class="item" src="../../assets/img/star.png" alt="">
+      <img class="item" src="../../assets/img/star.png" alt="" @click="$emit('collect')">
       <div class="comment item" @click="$emit('to-comment')">
         <img src="../../assets/img/comment.png" alt="">
         <span class="num">{{numFilter(storyExtra.comments)}}</span>
