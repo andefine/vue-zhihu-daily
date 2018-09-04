@@ -63,7 +63,7 @@ export default {
     notComplete () {
       this.$toast({
         message: '假的！点了没用那种，气不气(～￣▽￣)～ ',
-        duration: 700
+        duration: 200
       })
     },
     // 点击侧边栏各个主题日报的加号订阅该主题日报，传入日报名称

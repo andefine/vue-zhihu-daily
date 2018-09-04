@@ -231,7 +231,7 @@ export default {
     notComplete () {
       this.$toast({
         message: '假的！点了没用那种，气不气(～￣▽￣)～',
-        duration: 700
+        duration: 200
       })
     },
     notComplete02 () {
