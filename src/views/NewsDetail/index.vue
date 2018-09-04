@@ -1,7 +1,7 @@
 <template>
   <div class="news-detail">
     <link rel="stylesheet" :href="story.css">
-    <detail-header class="detail-header" v-if="story.id" :story-extra="storyExtra" @show-share="toggleShareModal" @collect="notComplete" @to-comment="toComment"></detail-header>
+    <detail-header class="detail-header" v-if="story.id" :story-extra="storyExtra" @show-share="toggleShareModal" @collect="notComplete" @to-comment="toComment" @thumb-up="notComplete"></detail-header>
     <div class="container">
       <div class="top" v-if="story.image">
         <img class="img" :src="image403(story.image)" alt="">

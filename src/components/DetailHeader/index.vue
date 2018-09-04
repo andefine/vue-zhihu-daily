@@ -10,7 +10,7 @@
         <img src="../../assets/img/comment.png" alt="">
         <span class="num">{{numFilter(storyExtra.comments)}}</span>
       </div>
-      <div class="thumb-up item">
+      <div class="thumb-up item" @click="$emit('thumb-up')">
         <img src="../../assets/img/thumb_up.png" alt="">
         <span class="num">{{numFilter(storyExtra.popularity)}}</span>
       </div>
