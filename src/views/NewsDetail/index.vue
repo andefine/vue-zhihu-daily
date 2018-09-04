@@ -1,7 +1,7 @@
 <template>
   <div class="news-detail">
     <link rel="stylesheet" :href="story.css">
-    <detail-header v-if="story.id" :story-extra="storyExtra" @show-share="toggleShareModal" @collect="notComplete" @to-comment="toComment"></detail-header>
+    <detail-header class="detail-header" v-if="story.id" :story-extra="storyExtra" @show-share="toggleShareModal" @collect="notComplete" @to-comment="toComment"></detail-header>
     <div class="container">
       <div class="top" v-if="story.image">
         <img class="img" :src="image403(story.image)" alt="">
@@ -14,7 +14,7 @@
 
     <!-- 点击头部分享按钮显示的分享方式 -->
     <transition name="fade">
-      <div class="mask" v-show="shareModalIsShow" @click="toggleShareModal">
+      <div class="share-mask" v-show="shareModalIsShow" @click="toggleShareModal">
         <share-modal class="share-modal" v-show="shareModalIsShow"></share-modal>
       </div>
     </transition>
@@ -104,7 +104,15 @@ export default {
 .news-detail {
   height: 100%;
   overflow: auto;
+  .detail-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
+  }
   .container {
+    padding-top: 112px;
     position: relative;
     .top {
       width: 100%;
@@ -142,7 +150,7 @@ export default {
       }
     }
   }
-  .mask {
+  .share-mask {
     position: fixed;
     left: 0;
     top: 0;
