@@ -63,7 +63,9 @@ proxyTable: {
 
 [vue cli+axios踩坑记录+拦截器使用，代理跨域proxy（更新）](https://blog.csdn.net/u012369271/article/details/72848102)
 
-[API Proxying During Development](http://vuejs-templates.github.io/webpack/proxy.html)
+[使用vue-cli+axios配置代理进行跨域访问数据](https://blog.csdn.net/it_cgq/article/details/78781422)
+
+vue-cli的template文档中也有说明[API Proxying During Development](http://vuejs-templates.github.io/webpack/proxy.html)
 
 ## 使用axios获取的图片url直接放在img的src属性中呢，会出现403的错误(╥╯^╰╥)。解决方法
 [【前端】解决访问api图片403禁止访问问题](https://segmentfault.com/a/1190000011628835)
@@ -71,3 +73,11 @@ proxyTable: {
 ## vue-awesome-swiper使用v-for渲染数据时，设置loop:true无效，解决方法：在父元素中添加v-if="xxx.length > 0"。答案在此[{ loop: true } swiper-slide goes wrong when data is from v-for](https://github.com/surmon-china/vue-awesome-swiper/issues/322)
 
 ## 预实现返回不刷新，所以使用了\<keep-alive\>。此时返回的确是不刷新了，但是出现了一个新问题，当路由参数改变时，前进也不会刷新= =。(可以先去看一下[Vue Router官方文档](https://router.vuejs.org/)中Dynamic Route Matching下的Reacting to Params Changes和Navigation Guards)。解决方法参考此篇文章：[另辟蹊径：vue单页面，多路由，前进刷新，后退不刷新](https://juejin.im/entry/5a1386ac51882554b8372a6c#comment)，在此感谢作者大佬
+
+## 项目打包如何运行
+项目打包完成之后控制台提示如下，不信可以直接去文件中直接打开index.html试试(我已经试过了0.0)。
+```
+Tip: built files are meant to be served over an HTTP server.
+Opening index.html over file:// won't work.
+```
+所以还需要使用http-server这个插件，详细内容可到这里查看[利用http-server测试vue-cli打包后的项目](https://segmentfault.com/a/1190000012249873)
