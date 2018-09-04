@@ -98,7 +98,22 @@ export default {
     SidebarMenu: () => import('@/components/SidebarMenu')
   },
   created () {
-    this.loadData()
+    // this.loadData()
+  },
+  beforeRouteEnter (to, from, next) {
+    // 如果是从新闻详情页跳转过来的，说明是返回
+    if (from.name === 'newsDetail') {
+      to.meta.isBack = true
+    }
+    next()
+  },
+  activated () {
+    // 如果不是从newsDetail返回的，则需要重新加载数据
+    if (!this.$route.meta.isBack) {
+      this.loadData()
+    }
+    // 恢复成默认的false，避免isBack一直是true，导致下次无法获取数据
+    this.$route.meta.isBack = false
   },
   methods: {
     ...mapMutations(['CLEARHOMEPAGE', 'ADDTHEMESUBSCRIBED', 'REMOVETHEMESUBSCRIBED']),

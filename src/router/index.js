@@ -13,17 +13,28 @@ export default new Router({
     {
       path: '/',
       name: 'homePage',
-      component: () => import('@/views/HomePage')
+      component: () => import('@/views/HomePage'),
+      meta: {
+        keepAlive: true,
+        isBack: false
+      }
     },
     {
       path: '/newsDetail/:id',
       name: 'newsDetail',
-      component: () => import('@/views/NewsDetail')
+      component: () => import('@/views/NewsDetail'),
+      meta: {
+        keepAlive: true,
+        isBack: false
+      }
     },
     {
       path: '/newsDetail/:id/comment',
       name: 'comment',
-      component: () => import('@/views/Comment')
+      component: () => import('@/views/Comment'),
+      meta: {
+        keepAlive: false
+      }
     }
   ]
 })

@@ -36,8 +36,24 @@ export default {
     DetailHeader: () => import('@/components/DetailHeader'),
     ShareModal: () => import('@/components/ShareModal')
   },
+  // 此处是在该组件挂载之后执行的内容，但是在<router-view>外使用了<keep-alive>时，从该页返回到HomePage之后，这一页依然是缓存的，不会被清除，所以在HomePage点击另一条新闻进入这一页时，这一页依然会保持和第一次进入的内容一样。
   mounted () {
-    this.getNews()
+    // this.getNews()
+  },
+  beforeRouteEnter (to, from, next) {
+    if (from.name === 'homePage') {
+      // 如果是从首页跳转过来的，说明不是返回操作
+      to.meta.isBack = false
+    } else if (from.name === 'comment') {
+      // 如果是从评论页跳转过来的，是返回操作
+      to.meta.isBack = true
+    }
+    next()
+  },
+  activated () {
+    if (!this.$route.meta.isBack) {
+      this.getNews()
+    }
   },
   methods: {
     image403,
