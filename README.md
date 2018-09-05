@@ -4,7 +4,7 @@
 
 一直在学习vue，看文档、看博客、写小例子，但是仔细想想还是需要一个项目来加强对vue的掌握程度。项目不是很庞大，非常适合用来练习和检验，而且有大神分析好的API，不用为获取数据烦恼(￣▽￣)~*
 
-项目中基本功能差不多都已实现，一些没有接口或其他地方并没有实现。整个项目中肯定是存在着问题的，你可以自己修复bug或者告知我，，嗯，就这样
+项目中基本功能差不多都已实现，一些没有接口或其他地方并没有实现。整个项目中肯定是存在着问题的，你可以自己修复bug或者告知我，，嗯，对，就这样。项目地址 [vue-zhihu-daily](https://github.com/andefine/vue-zhihu-daily)
 
 ## 声明
 本项目所有文字图片等稿件内容均由[知乎](https://www.zhihu.com/)提供，获取与共享之行为或有侵犯知乎权益的嫌疑。若被告知需停止共享与使用，本人会及时删除整个项目。请您了解相关情况，并遵守知乎协议。
@@ -36,9 +36,24 @@ npm run build --report
 * vue+vue-router+vuex 全家桶当然一个都少不了
 * 项目中使用了不少插件：lib-flexible(适配移动端)、vue-awesome-swiper(轮播图)、better-scroll(滚动插件)、axios(尤大亲自推荐的哟)、moment(格式化时间)、mint-ui(其实我就用了一个toast组件0.0)
 
+## 项目结构中主要部分
+* **build**: webpack的很多很多很多配置。主要修改：`build/utils.js`中配置了`px2rem-loader`
+* **config**: 项目中的配置啥的。主要修改：`config/index.js`中配置`proxyTable`的api代理。
+* **src**: 写代码的主要地方。
+  * assets: 静态资源，我主要放了图标
+  * components: 普通组件
+  * router: 路由(附上[官方文档](https://router.vuejs.org/))
+  * store: 状态管理，也就是写vuex的地方(附上[官方文档](https://vuex.vuejs.org/))
+  * styles: 样式文件
+  * utils: 项目中用到的公用的一些方法
+  * views: 视图组件
+* **static**: 静态文件。和`src/assets`是有区别的，文档中说这个文件夹下的文件打包时会直接copy，而`src/assets`下的文件将会被webpack处理，emmmmmmmmm，嗯。还是看文档吧：[Handling Static Assets](https://vuejs-templates.github.io/webpack/static.html)
+
 ## 截图
 ![](./screenshots/index.gif)
+
 ![](./screenshots/sidebar.gif)
+
 ![](./screenshots/news_detail.gif)
 
 ## 记录下的一些知识点(有些没记下那就是忘了==)
