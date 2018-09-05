@@ -36,6 +36,11 @@ npm run build --report
 * vue+vue-router+vuex 全家桶当然一个都少不了
 * 项目中使用了不少插件：lib-flexible(适配移动端)、vue-awesome-swiper(轮播图)、better-scroll(滚动插件)、axios(尤大亲自推荐的哟)、moment(格式化时间)、mint-ui(其实我就用了一个toast组件0.0)
 
+## 截图
+![](./screenshots/index.gif)
+![](./screenshots/sidebar.gif)
+![](./screenshots/news_detail.gif)
+
 ## 记录下的一些知识点(有些没记下那就是忘了==)
 
 1. ### 使用vue-cli创建项目
