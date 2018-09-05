@@ -4,15 +4,16 @@
 
 一直在学习vue，看文档、看博客、写小例子，但是仔细想想还是需要一个项目来加强对vue的掌握程度。项目不是很庞大，非常适合用来练习和检验，而且有大神分析好的API，不用为获取数据烦恼(￣▽￣)~*
 
-项目中基本功能差不多都已实现，一些没有接口或其他地方并没有实现。整个项目中肯定是存在着问题的，你可以自己修复bug或者告知我，，嗯，对，就这样。项目地址 [vue-zhihu-daily](https://github.com/andefine/vue-zhihu-daily)
+项目中基本功能差不多都已实现，一些没有接口或其他地方并没有实现。整个项目中肯定是存在着问题的，若遇到bug你可以自己修复或者告知我，，嗯，对，就这样。项目地址 [vue-zhihu-daily](https://github.com/andefine/vue-zhihu-daily)
 
 ## 声明
 本项目所有文字图片等稿件内容均由[知乎](https://www.zhihu.com/)提供，获取与共享之行为或有侵犯知乎权益的嫌疑。若被告知需停止共享与使用，本人会及时删除整个项目。请您了解相关情况，并遵守知乎协议。
 
 ## 致谢
+> [izzyleung](https://github.com/izzyleung) 整理的 [知乎日报 API 分析](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)
+
 > [cccyb](https://github.com/cccyb) 的 [vue-zhihu-daily](https://github.com/cccyb/vue-zhihu-daily)
 
-> [izzyleung](https://github.com/izzyleung) 整理的 [知乎日报 API 分析](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)
 
 ## Build Setup(vue-cli模板中的，不改了，懒)
 
